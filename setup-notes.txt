@@ -1,0 +1,22 @@
+To run the system locally, follow this guidelines:
+
+install the requirements:
+- Python 3.10
+- Text Editor of choice (VS Code recommended)
+
+1. Make sure that Python 3.10 is properly installed. To check, open a command prompt and type "python --version"
+2. Make sure that PIP is recognizable in command prompt. PIP is installed alongside python. To check, open a command prompt and type "pip"
+3. If either of the first step is fails. Add Python and PIP into the "environment variables" and consider researching the internet.
+
+Run the system locally:
+1. download the latest copy of the system in github "https://github.com/GeneDev123/binhi" The "main" branch typically have the latest update.
+2. Open the system in the text editor.
+3. Open a command prompt from inside the directory of the project.
+4. type "pip install pipenv"
+5. type "pipenv shell"
+6. type "pipenv install -r requirements.txt"
+7. type "cd binhi" to go inside a folder
+8. type "python manage.py runserver" to start the development server. "http://127.0.0.1:8000/" should be displayed if everything is working properly
+9. Open the link in the browser (Preferably Google)
+
+

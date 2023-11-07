@@ -1,0 +1,6 @@
+# Ignore pipenv specific files
+Pipfile.lock
+Pipfile
+
+# Ignore database files
+db.sqlite3

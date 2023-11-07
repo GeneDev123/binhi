@@ -1,0 +1,2 @@
+November 11, 2023
+- To update the requirements.txt file run the command "pipenv requirements > requirements.txt"
