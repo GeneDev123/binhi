@@ -1,2 +1,13 @@
 November 11, 2023
 - To update the requirements.txt file run the command "pipenv requirements > requirements.txt"
+- Setup pythonanywhere account
+    - username: binhi  
+    - email: binhi123email@gmail.com 
+    - password: testing321
+
+- setup the django web app (By Custom)
+- git clone the repo using an access token inside the pythonanywhere console
+- created virtual environment inside the project in pythonanywhere
+- Activate this and customize the wsgi
+- the path and source code should be where the manage.py file is located
+- Add the host in settings
