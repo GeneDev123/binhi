@@ -16,3 +16,4 @@ November 11, 2023
 - Consider using basic css for the styling to avoid unnessesary complications
 - Added VueJs for the frontend
 - Be sure to add the static path in pythonanywhere
+- run python manage.py collectstatic to collect the css for the admin page
