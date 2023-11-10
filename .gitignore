@@ -4,3 +4,6 @@ Pipfile
 
 # Ignore database files
 db.sqlite3
+
+# Ignore the migrations
+binhi/main/migrations
