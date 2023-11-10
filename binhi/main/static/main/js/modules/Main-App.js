@@ -5,6 +5,7 @@ class MainApp {
     
     if(document.getElementById("binhi-main-container")){
       Vue.createApp({
+        delimiters: ['[[', ']]'],
         data(){
           return {
             message: "Hello World",
