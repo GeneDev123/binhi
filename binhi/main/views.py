@@ -28,7 +28,7 @@ def user_login_and_register(request, login_or_register_param):
   else:
     form = CustomUserCreationForm if login_or_register_param == 'register' else AuthenticationForm()
 
-  return render(request, 'main/login-and-register.html', {'form': form, 'login_or_register': login_or_register_param})
+  return render(request, 'main/login-register.html', {'form': form, 'login_or_register': login_or_register_param})
 
 @login_required(login_url='/accounts/login/') 
 def home(request):
