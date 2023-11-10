@@ -22,9 +22,15 @@ Run the system locally (first time running):
 9. Press ctr+c to stop the process
 
 Initialize the database (first time running):
-10: type "python manage.py makemigrations main" to initialize the database schema in your computer
-11: type "python manage.py migrate" to create the database
-12: type "python manage.py createsuperuser" to create an admin. Fill up the requirements. Note: password wont appear in the terminal.
-13: type "python manage.py runserver" again to run the server then open the link to access the site
+1: type "python manage.py makemigrations main" to initialize the database schema in your computer
+2: type "python manage.py migrate" to create the database
+3: type "python manage.py createsuperuser" to create an admin. Fill up the requirements. Note: password wont appear in the terminal.
+4: type "python manage.py runserver" again to run the server then open the link to access the site
 
-
+Run the system (After done with above):
+1. Open the system in the text editor.
+2. Open a command prompt from inside the directory of the project.
+3. type "cd binhi" to go inside a folder
+4. type "python manage.py runserver" to start the development server. "http://127.0.0.1:8000/" should be displayed if everything is working properly
+5. Access the site through the link 
+6. Press ctr+c to stop the process
