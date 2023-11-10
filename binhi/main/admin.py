@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
       ('Personal info', 
       {
         'fields': 
-          ('first_name', 'last_name', 'bio',)
+          ('first_name', 'last_name', 'bio', 'career')
       }),
       ('Permissions', 
       {
