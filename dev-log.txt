@@ -17,3 +17,8 @@ November 11, 2023
 - Added VueJs for the frontend
 - Be sure to add the static path in pythonanywhere
 - run python manage.py collectstatic to collect the css for the admin page
+- When creating a custom user:
+    - update the AUTH_USER_MODEL
+    - Add to the model the updated user model
+    - Run makemigrations for the app 
+    - migrate  
