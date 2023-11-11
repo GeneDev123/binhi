@@ -5,6 +5,9 @@
   {% load static %}
   {% include "main/head.html" %}
 
+  {% block page_specific_styling %}
+  {% endblock %}
+
   <title>
     {% block page_title %}
       BINHI
@@ -15,6 +18,33 @@
 
 <body>
   <div id="binhi-main-container">
+
+    <div class="header-container">
+      <div class="header-label-container"> 
+        
+        <div class="header-title-container">
+          BINHI
+        </div>
+        
+        {% if user.is_authenticated %}
+          <div class="welcome-user-container">
+            {% if not user.username == '' %} Welcome, {{ user.username }}! {% else %} Welcome, User!{% endif %}
+          </div>
+          <div class="logout-container">
+            LOGOUT
+          </div>
+        {% endif %}
+        
+      </div>      
+      <nav class="navigation-links-containar">
+        <ul class="navigation-menu">
+          <li class="nav-item"><a href="{% url 'vegetable_recommendations' %}" class="nav-link">Vegetable Recommendations</a></li>
+          <li class="nav-item"><a href="{% url 'cultural_management_practices' %}" class="nav-link">Cultural Management Practices</a></li>
+          <li class="nav-item"><a href="{% url 'nutrient_management' %}" class="nav-link">Nutrient Management</a></li>
+          <li class="nav-item"><a href="{% url 'roi_analysis' %}" class="nav-link">ROI Analysis</a></li>
+        </ul>
+      </nav>
+    </div>
 
     {% block body %}
       This is base template
