@@ -35,3 +35,19 @@ def home(request):
   context = {}
   
   return render(request, 'main/home.html', context)
+
+@login_required(login_url='/accounts/login/') 
+def vegetable_recommendations(request):
+  return render(request, 'main/vegetable_recommendations.html')
+
+@login_required(login_url='/accounts/login/') 
+def cultural_management_practices(request):
+  return render(request, 'main/cultural_management_practices.html')
+
+@login_required(login_url='/accounts/login/') 
+def nutrient_management(request):
+  return render(request, 'main/nutrient_management.html')
+
+@login_required(login_url='/accounts/login/') 
+def roi_analysis(request):
+  return render(request, 'main/roi_analysis.html')

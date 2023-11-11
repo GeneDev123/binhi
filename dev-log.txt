@@ -22,3 +22,6 @@ November 11, 2023
     - Add to the model the updated user model
     - Run makemigrations for the app 
     - migrate  
+
+November 12, 2023
+- Added all the required pages and made ROI the focus of the system
