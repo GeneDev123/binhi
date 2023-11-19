@@ -9,8 +9,13 @@ class MainApp {
         data(){
           return {
             carouselIndex: 0,
-            webPage: "",
-            dataset: {}, 
+            trainClassifierUrl: "", 
+
+            accuracy: '',
+            precision: '',
+            recall: '',
+            confusionMat: '',
+            f1Score: '',
           }
         },
         components: {
@@ -20,7 +25,25 @@ class MainApp {
 
         },
         mounted(){
-          console.log(this.message);
+          
+          this.trainClassifierUrl = document.getElementById('train-classifier-var').value;
+
+          const thisVue = this;
+          $(document).ready(function() {
+            $('#train-classifier-btn').click(function() {
+              $.ajax({
+                url: thisVue.trainClassifierUrl,
+                type: "GET",
+                success: function(response) {
+                  thisVue.outputClassifierTraining(response.data);
+                },
+                error: function(xhr) {
+                  console.log(xhr.status);
+                }
+              });
+            });
+          });
+
         },
         methods: {
           switchCarouselImg(action){
@@ -30,6 +53,13 @@ class MainApp {
               this.carouselIndex = this.carouselIndex === 0 ? 2 : this.carouselIndex - 1;
             }
           },
+          outputClassifierTraining(data){
+            this.accuracy = data.accuracy;
+            this.precision = data.precision;
+            this.recall = data.recall;
+            this.f1Score = data.f1_score;
+            this.confusionMat = data.confusion_mat;
+          }
         }
       }).mount("#binhi-main-container");
     }

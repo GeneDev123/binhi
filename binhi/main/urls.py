@@ -10,4 +10,6 @@ urlpatterns = [
   path('', views.home, name='home'),
 
   path('logout/', views.user_logout, name='logout'),
+  path('train-classifier/', views.train_classifier, name='train_classifier'),
+  
 ]

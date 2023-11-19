@@ -3,9 +3,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .forms import CustomUserCreationForm, UserUpdateForm
 from .models import CustomUser
+
+from . import training
 
 def user_login_and_register(request, login_or_register_param):
   if request.user.is_authenticated:
@@ -39,6 +42,18 @@ def home(request):
   context = {}
   
   return render(request, 'main/home.html', context)
+
+@login_required(login_url='/accounts/login/') 
+def train_classifier(request):
+  context = {}
+  
+  context = training.train_classifier()
+  
+  return JsonResponse({
+    'message': 'Function executed successfully',
+    'data': context,
+  })
+
 
 @login_required(login_url='/accounts/login/') 
 def vegetable_recommendations(request):
