@@ -30,6 +30,10 @@ def user_login_and_register(request, login_or_register_param):
 
   return render(request, 'main/login-register.html', {'form': form, 'login_or_register': login_or_register_param})
 
+def user_logout(request):
+  logout(request)
+  return redirect('home') 
+
 @login_required(login_url='/accounts/login/') 
 def home(request):
   context = {}
