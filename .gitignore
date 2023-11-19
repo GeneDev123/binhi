@@ -7,3 +7,6 @@ db.sqlite3
 
 # Ignore the migrations
 binhi/main/migrations
+
+# Ignore the test_code
+test_code/
