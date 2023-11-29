@@ -41,3 +41,4 @@ crops_1 - crops_3 references
 November 30, 2023   
 - Added Multinomial Naive bayes Ai Integration
 - Added responsive styling
+- Added the BASE_DIR to the views, this is for deployment purposes
