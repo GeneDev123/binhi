@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
@@ -8,7 +9,7 @@ from django.http import JsonResponse
 from .forms import CustomUserCreationForm, UserUpdateForm
 from .models import CustomUser
 
-from . import training
+from . import ai
 
 def user_login_and_register(request, login_or_register_param):
   if request.user.is_authenticated:
@@ -40,20 +41,33 @@ def user_logout(request):
 @login_required(login_url='/accounts/login/') 
 def home(request):
   context = {}
+  classify_output = "Analyze the potential Return on Investment (ROI) for a harvested crop in a specific month by leveraging a machine learning model trained on historical data. Classify whether the anticipated ROI is positive or negative based on the insights derived from the aforementioned model."
+
+  with open('./main/dataset/json/dataset.json', 'r') as file:
+    data = json.load(file)
+    dataset = data["dataset"]
   
+  model_output = ai.train_classifier(dataset)
+
+  if request.method == 'GET':
+    
+    selected_month = request.GET.get('selectedMonth')
+    selected_crop = request.GET.get('selectedCrop')
+
+    if selected_crop != None and selected_month != None:  
+      classify_output = ai.classify({
+        'month': selected_month,
+        'crop': selected_crop,
+      })
+
+      print(classify_output)
+
+  context = {
+    'dataset': dataset,
+    'model_output': model_output,
+    'classify_output': classify_output,
+  }
   return render(request, 'main/home.html', context)
-
-@login_required(login_url='/accounts/login/') 
-def train_classifier(request):
-  context = {}
-  
-  context = training.train_classifier()
-  
-  return JsonResponse({
-    'message': 'Function executed successfully',
-    'data': context,
-  })
-
 
 @login_required(login_url='/accounts/login/') 
 def vegetable_recommendations(request):
