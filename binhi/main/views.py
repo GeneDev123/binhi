@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.conf import settings
 
 from .forms import CustomUserCreationForm, UserUpdateForm
 from .models import CustomUser
@@ -40,10 +41,11 @@ def user_logout(request):
 
 @login_required(login_url='/accounts/login/') 
 def home(request):
+  base_dir = settings.BASE_DIR
   context = {}
   classify_output = "Analyze the potential Return on Investment (ROI) for a harvested crop in a specific month by leveraging a machine learning model trained on historical data. Classify whether the anticipated ROI is positive or negative based on the insights derived from the aforementioned model."
 
-  with open('./main/dataset/json/dataset.json', 'r') as file:
+  with open( str(base_dir) + '/main/dataset/json/dataset.json', 'r') as file:
     data = json.load(file)
     dataset = data["dataset"]
   
