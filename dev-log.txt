@@ -37,3 +37,7 @@ crops_1 - crops_3 references
 - https://www.countryliving.com/life/g30770149/farm-quotes/
 
 - Added Frontend styling and carousel
+
+November 30, 2023   
+- Added Multinomial Naive bayes Ai Integration
+- Added responsive styling
