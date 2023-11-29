@@ -9,8 +9,6 @@ class MainApp {
         data(){
           return {
             carouselIndex: 0,
-            webPage: "",
-            dataset: {}, 
           }
         },
         components: {
@@ -20,7 +18,6 @@ class MainApp {
 
         },
         mounted(){
-          console.log(this.message);
         },
         methods: {
           switchCarouselImg(action){
