@@ -4,82 +4,32 @@
 
 {% block page_specific_styling %}
   <link rel="stylesheet" href="{% static 'main/css/naive-bayes-container.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/roi-calculator.css' %}">
 {% endblock %}
 
 {% block body %}
   <div id="home-page">
-    <div class="naive-bayes-container" id="naive-bayes-container">
-      
-      <div class="container-title">
-        Multinomial Naive Bayes Classifier
-      </div>      
 
-      <div class="roi-classify-form-container">
-        
-        <div class="roi-classify-label"> 
-          Classify Form
-        </div>
-
-        <form id="roi-classify-form" method="GET">
-          {% csrf_token %}
-          
-          <select id="selectedMonth" name="selectedMonth" required>
-            <option value="" disabled selected>Select Month</option>
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">Jun</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">December</option>
-          </select>
-
-          <!-- "Mango = 0, Sugarcane = 1, banana = 2, coconut = 3, cabbage = 4" -->
-          <select id="selectedCrop" name="selectedCrop" required>
-            <option value="" disabled selected>Select Crop</option>
-            <option value="0">Mango</option>
-            <option value="1">Sugarcane</option>
-            <option value="2">banana</option>
-            <option value="3">coconut</option>
-            <option value="4">cabbage</option>
-          </select>
-
-          <button class="classify-submit-btn" id="classify-submit-btn" type="submit">Send</button>
-        </form>
-
-        <div class="classify-output-container">
-          {{ classify_output }}
-        </div>
-
-      </div>
-
-      <div class="classifier-training-output-container">
-        <div class="classifier-training-output">
-          <span>Classifier Model Output</span>
-          <div class="accuracy">Accuracy: {{ model_output.accuracy }}</div>
-          <div class="precision">Precision: {{ model_output.precision }}</div>
-          <div class="recall">Recall: {{ model_output.recall }}</div>
-          <div class="f1-score">F1 Score: {{ model_output.f1_score }}</div>
-
-          <!-- Conflicting with vue delimiters -->
-          <!-- <div class="confusion-mat">Cofusion Matrix: {{ model_output.confusion_mat }}</div> -->
-        </div>
-      </div>
-
-      <div class="classifier-dataset-main-container">
-        <div class="classifier-dataset-container">
-          <div class="dataset-label">Dataset View</div>
-          <div class="dataset-container">
-            {{ dataset }} 
-          </div>
-        </div>
+    <div class="roi-option-label">
+      <div 
+        class="roi-predictor-option" 
+        :class="{ 'roi-option-selected': isROIPredictorShowing}"
+        @click="selectROIOption('predictor')"
+      >
+        ROI Predictor
       </div>
       
+      <div 
+        class="roi-calculator-option" 
+        :class="{ 'roi-option-selected': isROICalculatorShowing}"
+        @click="selectROIOption('calculator')"
+      >
+        ROI Calculator
+      </div>
+    
     </div>
+    
+    {% include "main/roi_predictor.html" %}
+    {% include "main/roi_calculator.html" %}
   </div>
 {% endblock %}
