@@ -129,12 +129,12 @@ class MainApp {
               }
             }
 
-            this.contingencyCost = this.totalCost * this.contingencyPercent;
-            this.totalCost = this.totalCost + this.contingencyCost;
+            this.contingencyCost = Number(this.totalCost) * Number(this.contingencyPercent);
+            this.totalCost = Number(this.totalCost) + Number(this.contingencyCost);
 
-            this.netIncome = this.grossIncome - this.totalCost;
+            this.netIncome = Number(this.grossIncome) - Number(this.totalCost);
 
-            this.roi = this.grossIncome / this.totalCost;
+            this.roi = Number(this.grossIncome) / Number(this.totalCost);
             this.roi = (this.roi * 100).toFixed(2) + "%"
 
             this.outputROICalculatedData();
