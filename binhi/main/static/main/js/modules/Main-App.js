@@ -14,7 +14,12 @@ class MainApp {
             selectedCrop: "",
             cropIsSelected: false,
             roiData: [],
-
+            contingencyPercent: "",
+            grossIncome: "",
+            contingencyCost: "",
+            totalCost: 0,
+            netIncome: 0,
+            roi: 1,
           }
         },
         components: {
@@ -98,6 +103,55 @@ class MainApp {
                 }
               }
             }
+          },
+          calculateROIData(){
+
+            if(!this.contingencyPercent){
+              alert("Input Contingency Percent Cost (ex. 0.10 for 10%).");
+              return;
+            }
+
+            if(!this.grossIncome){
+              alert("Input Gross Income (ex. 70000).");
+              return;
+            }
+
+            this.totalCost = 0;
+
+            for(let i = 0; i < this.roiData.length; i++){
+
+              if(this.roiData[i]?.sectionContent.length){
+                for(let j = 0; j < this.roiData[i]?.sectionContent.length; j++){
+                  
+                  this.totalCost = this.totalCost + this.roiData[i].sectionContent[j].amtPHP;
+                  
+                }
+              }
+            }
+
+            this.contingencyCost = this.totalCost * this.contingencyPercent;
+            this.totalCost = this.totalCost + this.contingencyCost;
+
+            this.netIncome = this.grossIncome - this.totalCost;
+
+            this.roi = this.grossIncome / this.totalCost;
+            this.roi = (this.roi * 100).toFixed(2) + "%"
+
+            this.outputROICalculatedData();
+          },
+          outputROICalculatedData(){
+            
+            let message = "The computed ROI for the given data:\n";
+          
+            alert(
+              message + 
+              "Contingency Cost: " + this.contingencyCost + "\n" +
+              "Total Cost: " + this.totalCost + "\n" +
+              "Gross Income: " + this.grossIncome + "\n" + 
+              "Net Income: " + this.netIncome + "\n" + 
+              "ROI(%): " + this.roi
+            );
+
           },
         }
       }).mount("#binhi-main-container");

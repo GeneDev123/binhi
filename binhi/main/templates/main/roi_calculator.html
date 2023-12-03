@@ -62,8 +62,8 @@
 
         </div>
 
-        <input type="text" class="contingencies-input" placeholder="Contingencies(%)..">
-        <input type="text" class="gross-income" placeholder="Gross Income...">
+        <input type="text" v-model="contingencyPercent" class="contingencies-input" placeholder="Contingencies(%)..">
+        <input type="text" v-model="grossIncome" class="gross-income" placeholder="Gross Income...">
 
         <button class="calculate-btn" id="calculate-btn" @click="calculateROIData()">Calculate</button>
 
