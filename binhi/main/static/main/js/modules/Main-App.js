@@ -9,6 +9,12 @@ class MainApp {
         data(){
           return {
             carouselIndex: 0,
+            isROIPredictorShowing: true,
+            isROICalculatorShowing: false,
+            selectedCrop: "",
+            cropIsSelected: false,
+            roiData: [],
+
           }
         },
         components: {
@@ -27,6 +33,48 @@ class MainApp {
               this.carouselIndex = this.carouselIndex === 0 ? 2 : this.carouselIndex - 1;
             }
           },
+          selectROIOption(ROIOption){
+            this.isROIPredictorShowing = true ? ROIOption === 'predictor' : false;
+            this.isROICalculatorShowing = true ? ROIOption === 'calculator' : false;
+          },
+          selectCrop(){
+            if(!this.selectedCrop) return;
+
+            console.log(this.selectedCrop);
+          },
+          overrideIfCropIsSelected() {
+            if(!this.cropIsSelected){
+              this.cropIsSelected = true;
+            }else{
+              this.refreshCalculator();
+            }
+          },
+          refreshCalculator(args){
+            let continueRefresh = window.confirm("Proceeding will delete current data, do you wish to proceed?");
+            if(!continueRefresh) return;
+            
+            if(args?.removeCrop){
+              this.selectedCrop = "";
+              this.cropIsSelected = false;
+            }
+
+            this.roiData = [];
+          },
+          addSection(){
+            this.roiData.push({
+              'sectionTitle': '',
+              'sectionContent': [],
+            })
+          },
+          addItem(index){
+            this.roiData[index].sectionContent.push({
+              'item': '',
+              'qty': '',
+              'unit': '',
+              'rate': '',
+              'amtPHP': '',
+            });
+          }
         }
       }).mount("#binhi-main-container");
     }

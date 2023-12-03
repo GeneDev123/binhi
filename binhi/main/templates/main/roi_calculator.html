@@ -1,0 +1,75 @@
+<div class="roi-calculator-container" id="roi-calculator-container" v-if="isROICalculatorShowing">
+      
+  <div class="container-title">
+    Return of Investment Data Organizer
+  </div>      
+
+  <div class="roi-calculate-form-container">
+    
+    <div class="roi-form-label"> 
+      Crop Production form
+    </div>
+
+    <div class="select-crop-form-container">
+      <select id="selectedCrop" v-model="selectedCrop" @change="overrideIfCropIsSelected" name="selectedCrop" required>
+        <option value="" disabled selected>Select Crop</option>
+        <option value="mango">Mango</option>
+        <option value="sugarcane">Sugarcane</option>
+        <option value="banana">banana</option>
+        <option value="coconut">coconut</option>
+        <option value="cabbage">cabbage</option>
+      </select>  
+
+      <button class="refresh-btn" id="refresh-btn" @click="refreshCalculator({'removeCrop': true})">Refresh</button>
+    
+    </div>
+
+    <hr>
+
+    <div class="data-organizer-container" v-if="selectedCrop">
+      
+      <div class="selected-crop" v-if="selectedCrop">
+        Selected Crop: [[ selectedCrop ]]
+      </div>
+      
+      <div class="data-organizer">
+        <div id="data-table">
+          <div class="header">ITEMS</div>
+          <div class="header">QTY.</div>
+          <div class="header">UNIT</div>
+          <div class="header">RATE</div>       
+          <div class="header">AMT. PHP</div>   
+
+          <div v-for="(section, sectionIndex) in roiData" :key="sectionIndex" class="section-container" :id="'section-' + sectionIndex">
+              
+            <input type="text" v-model="roiData[sectionIndex].sectionTitle" class="section-text-input" placeholder="Input the section title...">
+            
+            <div v-for="(item, itemIndex) in section.sectionContent" :id="'section-' + sectionIndex + '-item-' + itemIndex" class="item-container" :key="itemIndex">
+              
+              <textarea class="item-description-input item-content text-area" v-model="roiData[sectionIndex].sectionContent[itemIndex].item" placeholder="Input the item description..."></textarea>  
+              <input type="text" class="item-qty-input item-content" v-model="roiData[sectionIndex].sectionContent[itemIndex].qty" placeholder="Input the item quantity...">    
+              <input type="text" class="item-unit-input item-content" v-model="roiData[sectionIndex].sectionContent[itemIndex].unit" placeholder="Input the item unit...">    
+              <input type="text" class="item-rate-input item-content" v-model="roiData[sectionIndex].sectionContent[itemIndex].rate" placeholder="Item the item rate...">     
+              <input type="text" class="item-amt-php item-content" v-model="roiData[sectionIndex].sectionContent[itemIndex].amtPHP" placeholder="Amount PHP..." readonly> 
+
+            </div>
+
+            <div class="add-item-btn" @click="addItem(sectionIndex)">Add Item</div>
+          
+          </div>
+          
+          <div class="add-section-btn" @click="addSection">Add Section</div>        
+
+        </div>
+
+        <input type="text" class="contingencies-input" placeholder="Contingencies(%)..">
+        <input type="text" class="gross-income" placeholder="Gross Income...">
+
+        <button class="calculate-btn" id="calculate-btn" @click="calculateROIData()">Calculate</button>
+
+      </div>
+      
+    </div>
+
+  </div>  
+</div>
