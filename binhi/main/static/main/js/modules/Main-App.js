@@ -23,6 +23,14 @@ class MainApp {
         async created(){
 
         },
+        watch: {
+          roiData: {
+            handler(newValue, oldValue) {
+              this.computeForPHPamt();
+            },
+            deep: true,
+          },
+        },
         mounted(){
         },
         methods: {
@@ -74,7 +82,23 @@ class MainApp {
               'rate': '',
               'amtPHP': '',
             });
-          }
+          },
+          computeForPHPamt(){
+            for(let i = 0; i < this.roiData.length; i++){
+
+              if(this.roiData[i]?.sectionContent.length){
+                for(let j = 0; j < this.roiData[i]?.sectionContent.length; j++){
+               
+                  // Check if data is present and is number
+                  if(this.roiData[i].sectionContent[j].qty && this.roiData[i].sectionContent[j].rate){
+                    if(!isNaN(this.roiData[i].sectionContent[j].qty) && !isNaN(this.roiData[i].sectionContent[j].rate)){
+                      this.roiData[i].sectionContent[j].amtPHP = this.roiData[i].sectionContent[j].qty * this.roiData[i].sectionContent[j].rate
+                    }     
+                  }
+                }
+              }
+            }
+          },
         }
       }).mount("#binhi-main-container");
     }
