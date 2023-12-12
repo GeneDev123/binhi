@@ -1,8 +1,78 @@
+{% load static %}
+
 <div class="naive-bayes-container" id="naive-bayes-container" v-if="isROIPredictorShowing">
       
   <div class="container-title">
     Return of Investment Predictor
   </div>      
+
+  <div class="ai-process-instruction-container">
+    <div class="ai-process-instruction">
+      <div class="ai-instruction-label">
+        WHAT IT IS:
+      </div>
+      
+      <strong>BINHI</strong> uses <strong>Multinomial Naive Bayes</strong> algorithm to generate an AI classifer capable of 
+      predicting the likelihood of positive or negative return of investment based on a crop harvest of a specific month. Note that 
+      this provide prediction by identifying patterns and trends on historical ROI data.
+
+      <hr>
+      
+      <div class="ai-instruction-label">
+        DATASET REQUIREMENT:
+      </div>
+      Dataset that is used consists of past and historical data of crop harvests that has information on the ROI of crops per month. 
+      ROI may be interpreted as income, production, crop quality, crop price etc.
+
+      <hr>
+
+      <div class="ai-instruction-label">
+        HOW IT WORKS
+      </div>
+      
+      <br>
+      The dataset are then numerically converted, vectorized, randomized and split. <br>
+      - 80% of the dataset are used for training the AI by feeding it to the machine learning model <br>
+      - 20% of the dataset are used to test the trained machine learning model. <br>
+      This will produce the scores for the Accuracy, Precision, Recall, F1-Score, Confusion Matrix. 
+      
+      <br>
+      <br>
+
+      The AI predicts by identifying and recognizing pattern given to it by the dataset. The algorithm also incorporates 
+      the Baye's theorem hence the name. The machine learning algorithm are trained the page is loaded. 
+      A crop and a month user input is required for user application. 
+      
+      <br>
+      <br>
+
+    </div>
+  </div>
+
+  <div class="classifier-dataset-main-container">
+    <div class="classifier-dataset-container">
+      <div class="dataset-label">Raw Dataset View <small>- Dataset improvement is advisable. This dataset is not fixed.</small></div>
+      
+      The provided dataset shows the Growth rate of crops which can be interpreted as ROI. A positive percent may be interpreted as 
+      positive ROI and vice versa.
+
+      <div class="dataset-img-container">
+        <img src="{% static 'main/assets/dataset_screenshot.png' %}" class="d-block w-100" alt="Dataset image">
+      </div>
+
+      <div class="dataset-label">Vectorized and formatted Dataset View</div>
+
+      Dataset are then cleaned and vectorized.
+      Under the dataset, the key represent the Positive and Negative ROI, the value of that is an array.
+      The first index of the array represent the crop index and the second index represent the month of the year.
+      Mango = 0, Sugarcane = 1, banana = 2, coconut = 3, cabbage = 4"
+      (0-11 = Jan - Dec)
+      <div class="dataset-container">
+        {{ dataset }} 
+      </div>
+
+    </div>
+  </div>
 
   <div class="roi-classify-form-container">
     
@@ -43,31 +113,45 @@
     </form>
 
     <div class="classify-output-container">
-      {{ classify_output }}
+      <strong>{{ classify_output }}</strong>
+
+      <br>
+      <br>
+
+      <div v-if="!isModelTrained">
+        <button class="train-btn" id="train-btn" type="submit">Train Classifier</button>
+      </div>
+            
     </div>
 
   </div>
 
-  <div class="classifier-training-output-container">
-    <div class="classifier-training-output">
+  <div class="classifier-training-output-container" v-if="isModelTrained">
+    <div class="loading-main-container" v-if="isLoading">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+      </div>  
+    </div>
+    
+    <div class="classifier-training-output" v-if="!isLoading">
       <span>Classifier Model Output</span>
-      <div class="accuracy">Accuracy: {{ model_output.accuracy }}</div>
+
+      <!-- <div class="accuracy">Accuracy: {{ model_output.accuracy }}</div>
       <div class="precision">Precision: {{ model_output.precision }}</div>
       <div class="recall">Recall: {{ model_output.recall }}</div>
-      <div class="f1-score">F1 Score: {{ model_output.f1_score }}</div>
+      <div class="f1-score">F1 Score: {{ model_output.f1_score }}</div> -->
+      
+      <div class="accuracy">Accuracy: [[ accuracy ]]</div>
+      <div class="precision">Precision: [[ precision ]]</div>
+      <div class="recall">Recall: [[ recall ]]</div>
+      <div class="f1-score">F1 Score: [[ f1Score ]]</div>
 
       <!-- Conflicting with vue delimiters -->
       <!-- <div class="confusion-mat">Cofusion Matrix: {{ model_output.confusion_mat }}</div> -->
     </div>
   </div>
 
-  <div class="classifier-dataset-main-container">
-    <div class="classifier-dataset-container">
-      <div class="dataset-label">Dataset View</div>
-      <div class="dataset-container">
-        {{ dataset }} 
-      </div>
-    </div>
-  </div>
+  <input type='text' value="{% url 'train_classifier' %}" id="train-classifier-url" style="display: none;"></input>
   
 </div>

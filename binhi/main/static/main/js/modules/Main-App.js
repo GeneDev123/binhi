@@ -20,6 +20,13 @@ class MainApp {
             totalCost: 0,
             netIncome: 0,
             roi: 1,
+            isModelTrained: false,
+            trainModelUrl: "",
+            isLoading: false,
+            accuracy: '',
+            recall: '',
+            precision: '',
+            f1Score: '',
           }
         },
         components: {
@@ -36,9 +43,41 @@ class MainApp {
             deep: true,
           },
         },
-        mounted(){
+        async mounted(){
+          this.trainModelUrl = document.getElementById('train-classifier-url').value;
+          await this.initializeTrainBtn();
         },
         methods: {
+          initializeTrainBtn(){
+            let vueApp = this;
+            $(document).ready(function() {
+              $('#train-btn').on('click', function() {
+
+                  vueApp.isLoading = true
+                  $.ajax({
+                    url: vueApp.trainModelUrl,
+                    type: 'GET',
+                    success: function(response) {
+                      vueApp.isModelTrained = true;
+                      
+                      setTimeout(function() {
+                        alert('Notice: Model Successfully Trained');
+                        vueApp.isLoading = false;
+                        vueApp.accuracy = response.model_output.accuracy
+                        vueApp.precision = response.model_output.precision
+                        vueApp.recall = response.model_output.recall
+                        vueApp.f1Score = response.model_output.f1_score
+                        // vueApp.accuracy = response.model_output.accuracy
+                      }, 2000);
+                    },
+                    error: function(error) {
+                      alert('Notice: Model Training failed');
+                      vueApp.isLoading = false;
+                    }
+                  });
+              });
+          });
+          },
           switchCarouselImg(action){
             if(action == 'next'){
               this.carouselIndex = this.carouselIndex === 2 ? 0 : this.carouselIndex + 1;

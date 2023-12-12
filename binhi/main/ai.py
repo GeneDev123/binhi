@@ -119,9 +119,9 @@ def classify(inputs):
     # Convert the confidence score to percentage
     confidence_percentage = round(confidence_score * 100, 2)
 
-    output = f"The classification output for {crops[user_crop_index]} crops, in conjunction with the harvest expectations for {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if predicted_class_index == 1 else 'NEGATIVE return on investment'}. Confidence: {confidence_percentage}%."
+    output = f"The classification output for {crops[user_crop_index]} crops, for  the month of {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if predicted_class_index == 1 else 'NEGATIVE return on investment'}.\n AI Accuracy Confidence: {confidence_percentage}%.\n Improvement of dataset may increase the AI scores and accuracy."
     return output
 
   except:
-    output = "ERROR: Classification failed."
+    output = ""
     return output
