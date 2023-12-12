@@ -106,11 +106,20 @@ def classify(inputs):
     # Transform user input into the format expected by the model
     user_input = [{"crop_index": user_crop_index, "month": user_month}]
     user_input_matrix = vectorizer.transform(user_input)
+    
+    # Make predictions and get probability estimates
+    user_prediction_prob = model.predict_proba(user_input_matrix)
 
-    # Make predictions on user input
-    user_prediction = model.predict(user_input_matrix)
+    # Get the class index with the highest probability
+    predicted_class_index = np.argmax(user_prediction_prob)
 
-    output = f"The classification output for {crops[user_crop_index]} crops, in conjunction with the harvest expectations for {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if user_prediction[0] == 1 else 'NEGATIVE return on investment'}."
+    # Get the confidence score for the predicted class
+    confidence_score = user_prediction_prob[0, predicted_class_index]
+
+    # Convert the confidence score to percentage
+    confidence_percentage = round(confidence_score * 100, 2)
+
+    output = f"The classification output for {crops[user_crop_index]} crops, in conjunction with the harvest expectations for {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if predicted_class_index == 1 else 'NEGATIVE return on investment'}. Confidence: {confidence_percentage}%."
     return output
 
   except:
