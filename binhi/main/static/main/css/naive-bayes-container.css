@@ -159,6 +159,7 @@ select {
   color: #00c700;
   padding: 5px;
   margin: 10px 0px;
+  overflow: auto;
 }
 
 .classify-output-container {
