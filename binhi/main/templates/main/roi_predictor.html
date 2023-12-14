@@ -121,6 +121,15 @@
       <div v-if="!isModelTrained">
         <button class="train-btn" id="train-btn" type="submit">Train Classifier</button>
       </div>
+      
+      <div class="terminal-output-container">
+      
+        Terminal Output: 
+        
+        <div class="terminal-output">
+          {{ progress_output }}
+        </div>
+      </div>
             
     </div>
 

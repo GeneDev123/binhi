@@ -50,6 +50,7 @@ def home(request):
     dataset = data["dataset"]
   
   model_output = {}
+  progress_output = ''
 
   if request.method == 'GET':
     
@@ -57,7 +58,7 @@ def home(request):
     selected_crop = request.GET.get('selectedCrop')
 
     if selected_crop != None and selected_month != None:  
-      classify_output = ai.classify({
+      classify_output, progress_output  = ai.classify({
         'month': selected_month,
         'crop': selected_crop,
       })
@@ -68,6 +69,7 @@ def home(request):
     'dataset': dataset,
     'model_output': model_output,
     'classify_output': classify_output,
+    'progress_output': progress_output
   }
   return render(request, 'main/home.html', context)
 
