@@ -98,6 +98,9 @@ def classify(inputs):
     2: "Banana",
     3: "Coconut",
     4: "Cabbage",
+    5: "Eggplant",
+    6: "Mongo",
+    7: "Tomato",
   }
 
   result_string = ''
