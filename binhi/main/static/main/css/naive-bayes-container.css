@@ -1,3 +1,40 @@
+.loading-main-container{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.6;
+}
+
+.loading-container {
+  text-align: center;
+}
+
+.loading-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.loading-spinner {
+  border: 8px solid #3498db;
+  border-radius: 50%;
+  border-top: 8px solid #fff;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  opacity: 1  ;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ------------------- */
 
 #naive-bayes-container{
   background-color: rgb(63, 63, 63);
@@ -18,7 +55,7 @@
   font-size: 20px;
 }
 
-.classifier-dataset-main-container , .classifier-training-output-container, .roi-classify-form-container{
+.classifier-dataset-main-container , .classifier-training-output-container, .roi-classify-form-container, .ai-process-instruction-container{
   width: 80%;
   background-color: #FAF5E9;
   border-radius: 15px;
@@ -27,20 +64,40 @@
   margin-bottom: 20px;
 }
 
-.classifier-dataset-container , .classifier-training-output{
+.ai-process-instruction-container{
+  width: 95%;
+}
+
+.classifier-dataset-container , .classifier-training-output, .ai-process-instruction{
   padding: 10px;
-  max-height: 300px;
+  max-height: 800px;
   overflow-y: auto;
+}
+
+.ai-process-instruction{
+  max-height: none;
 }
 
 .dataset-container{
   background-color:  black;
   color: #00c700;
   padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dataset-img-container{
+  padding: 10px;
 }
 
 .dataset-label , .classifier-training-output span, .roi-classify-label {
   font-weight: bolder;
+}
+
+.ai-instruction-label{
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline;
 }
 
 .roi-classify-label{
@@ -70,7 +127,7 @@ select {
   color: #555;
 }
 
-.classify-submit-btn {
+.classify-submit-btn, .train-btn {
   background-color: rgb(63, 63, 63);
   color: #FFCC00;
   padding: 12px 15px;
@@ -81,9 +138,28 @@ select {
   transition: background-color 0.3s ease;
 }
 
-.classify-submit-btn:hover {
+.classify-submit-btn:hover, .train-btn:hover {
   background-color: #FAF5E9;
   color: rgb(63, 63, 63);
+}
+
+.terminal-output-container{
+  width: 90%;
+  background-color: #FAF5E9;
+  margin: auto;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(0 0 0 / 10%);
+}
+
+.terminal-output-container .terminal-output{
+  width: 100%;
+  background-color: black;
+  color: #00c700;
+  padding: 5px;
+  margin: 10px 0px;
+  overflow: auto;
 }
 
 .classify-output-container {

@@ -43,13 +43,14 @@ def user_logout(request):
 def home(request):
   base_dir = settings.BASE_DIR
   context = {}
-  classify_output = "Analyze the potential Return on Investment (ROI) for a harvested crop in a specific month by leveraging a machine learning model trained on historical data. Classify whether the anticipated ROI is positive or negative based on the insights derived from the aforementioned model."
+  classify_output = "Analyze the Return on Investment (ROI) for a harvested crop in a specific month by leveraging a machine learning model trained on historical data. Classify whether the anticipated ROI is positive or negative based on the insights derived from the aforementioned model."
 
   with open( str(base_dir) + '/main/dataset/json/dataset.json', 'r') as file:
     data = json.load(file)
     dataset = data["dataset"]
   
-  model_output = ai.train_classifier(dataset)
+  model_output = {}
+  progress_output = ''
 
   if request.method == 'GET':
     
@@ -57,7 +58,7 @@ def home(request):
     selected_crop = request.GET.get('selectedCrop')
 
     if selected_crop != None and selected_month != None:  
-      classify_output = ai.classify({
+      classify_output, progress_output  = ai.classify({
         'month': selected_month,
         'crop': selected_crop,
       })
@@ -68,8 +69,26 @@ def home(request):
     'dataset': dataset,
     'model_output': model_output,
     'classify_output': classify_output,
+    'progress_output': progress_output
   }
   return render(request, 'main/home.html', context)
+
+def train_ai(request):
+  base_dir = settings.BASE_DIR
+  context = {}
+
+  with open( str(base_dir) + '/main/dataset/json/dataset.json', 'r') as file:
+    data = json.load(file)
+    dataset = data["dataset"]
+
+  try:
+    model_output = ai.train_classifier(dataset)
+    context = {'model_output': model_output, 'classify_output': "Training Complete."}  
+
+  except:
+    context = {}
+
+  return JsonResponse(context, safe=False)
 
 @login_required(login_url='/accounts/login/') 
 def vegetable_recommendations(request):

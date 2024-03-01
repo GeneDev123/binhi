@@ -4,7 +4,9 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.metrics import recall_score, precision_score, f1_score 
+from sklearn.metrics import recall_score, precision_score, f1_score, classification_report
+from tqdm import tqdm
+import time
 
 def train_classifier(dataset):
 
@@ -96,23 +98,53 @@ def classify(inputs):
     2: "Banana",
     3: "Coconut",
     4: "Cabbage",
+    5: "Eggplant",
+    6: "Mongo",
+    7: "Tomato",
   }
+
+  result_string = ''
 
   try:
     model = classifier_model
-    user_crop_index = int(inputs['crop'])
-    user_month = int(inputs['month'])
+    start_time = time.time()
 
-    # Transform user input into the format expected by the model
-    user_input = [{"crop_index": user_crop_index, "month": user_month}]
-    user_input_matrix = vectorizer.transform(user_input)
+    with tqdm(total=1, desc="Classification progress", position=0, leave=True) as pbar:
+      user_crop_index = int(inputs['crop'])
+      user_month = int(inputs['month'])
 
-    # Make predictions on user input
-    user_prediction = model.predict(user_input_matrix)
+      # Transform user input into the format expected by the model
+      user_input = [{"crop_index": user_crop_index, "month": user_month}]
+      user_input_matrix = vectorizer.transform(user_input)
+      
+      # Make predictions and get probability estimates
+      user_prediction_prob = model.predict_proba(user_input_matrix)
+      user_prediction = model.predict(user_input_matrix)
 
-    output = f"The classification output for {crops[user_crop_index]} crops, in conjunction with the harvest expectations for {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if user_prediction[0] == 1 else 'NEGATIVE return on investment'}."
-    return output
+      # Get the class index with the highest probability
+      predicted_class_index = np.argmax(user_prediction_prob)
 
+      # Get the confidence score for the predicted class
+      confidence_score = user_prediction_prob[0, predicted_class_index]
+
+      # Convert the confidence score to percentage
+      confidence_percentage = round(confidence_score * 100, 2)
+
+      # Build the result string
+      result_string = f"\nMultinomial Naive Bayes Classification:\nprediction: {user_prediction}\nprediction_prob: {user_prediction_prob[0]}"
+
+      output = f"The classification output for {crops[user_crop_index]} crops, for the month of {months[user_month]}, is predicted to result in a {'POSITIVE return on investment' if predicted_class_index == 1 else 'NEGATIVE return on investment'}.\n AI Accuracy Confidence: {confidence_percentage}%.\n Improvement of the dataset may increase AI scores and accuracy."
+
+      pbar.update(1)
+
+      elapsed_time = time.time() - start_time
+      progress_rate = pbar.n / elapsed_time if elapsed_time > 0 else 0
+      result_string += f"\nElapsed Time: {elapsed_time * 1000:.2f} milliseconds"
+      result_string += f"\nElapsed Time: {elapsed_time * 1e6:.2f} microseconds"
+      result_string += f"Progress Rate: {progress_rate:.2f} iterations/second\n"
+      result_string += f"Classification progress: 100%|================================|1/1 [{progress_rate:.2f} it/s]"
+      
+    return output, result_string
   except:
-    output = "ERROR: Classification failed."
-    return output
+    output = ""
+    return output, result_string 
