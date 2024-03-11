@@ -7,6 +7,7 @@ urlpatterns = [
   path('cultural-management-practices/', views.cultural_management_practices, name='cultural_management_practices'),
   path('nutrient-management/', views.nutrient_management, name='nutrient_management'),
   path('train/', views.train_ai, name='train_classifier'),
+  path('train-linear-regression/', views.train_ai_2, name='train_classifier_2'),
   path('home/', views.home, name='home'),
   path('', views.home, name='home'),
 
