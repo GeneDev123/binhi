@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
+import pandas as pd
 
 from .forms import CustomUserCreationForm, UserUpdateForm
 from .models import CustomUser
@@ -52,24 +53,52 @@ def home(request):
   model_output = {}
   progress_output = ''
 
+  # for classifier v2
+  selected_crop = ''
+  investment = ''
+  selected_date = ''
+  predicted_roi = ''
+  total_return = ''
+
   if request.method == 'GET':
     
-    selected_month = request.GET.get('selectedMonth')
-    selected_crop = request.GET.get('selectedCrop')
+    form_name = request.GET.get('form_name')
+    if form_name == 'roi-classify-form':
 
-    if selected_crop != None and selected_month != None:  
-      classify_output, progress_output  = ai.classify({
-        'month': selected_month,
-        'crop': selected_crop,
-      })
+      print("ROI Predictor V1")
+      selected_month = request.GET.get('selectedMonth')
+      selected_crop = request.GET.get('selectedCrop')
 
-      print(classify_output)
+      if selected_crop != None and selected_month != None:  
+        classify_output, progress_output  = ai.classify({
+          'month': selected_month,
+          'crop': selected_crop,
+        })
+
+        print(classify_output)
+
+    elif form_name == 'roi-classify-form-2':
+      print("ROI Predictor V2")
+
+      selected_crop = request.GET.get('selectedCrop')
+      investment = request.GET.get('investment-php')
+      selected_date = request.GET.get('selectedDate')
+      year, month, day = selected_date.split('-')
+
+      predicted_roi, total_return = ai.classify2(investment, month, year, selected_crop)
 
   context = {
     'dataset': dataset,
     'model_output': model_output,
     'classify_output': classify_output,
-    'progress_output': progress_output
+    'progress_output': progress_output,
+
+    # This is for classifier v2
+    'selected_crop': selected_crop,
+    'selected_date': selected_date,
+    'investment': investment,
+    'roi': predicted_roi,
+    'total_return': total_return,
   }
   return render(request, 'main/home.html', context)
 
@@ -90,6 +119,22 @@ def train_ai(request):
 
   return JsonResponse(context, safe=False)
 
+def train_ai_2(request):
+  base_dir = settings.BASE_DIR
+  context = {}
+
+  data = pd.read_csv(str(base_dir) + "/main/dataset/csv/farm-gate-prices.csv")
+  dataset = ai.get_dataset_linear_regression(data)
+  
+  try: 
+    models, scores = ai.train_classifier2(dataset)
+    context = {'model_output': scores, 'classify_output': "Training Complete."}  
+
+  except:
+    context = {}
+
+  return JsonResponse(context, safe=False)
+  
 @login_required(login_url='/accounts/login/') 
 def vegetable_recommendations(request):
   return render(request, 'main/vegetable_recommendations.html')

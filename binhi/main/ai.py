@@ -5,8 +5,13 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.metrics import recall_score, precision_score, f1_score, classification_report
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from tqdm import tqdm
 import time
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from datetime import datetime
 
 def train_classifier(dataset):
 
@@ -19,12 +24,6 @@ def train_classifier(dataset):
       features.append({"crop_index": int(value[0]), "month": int(value[1])})
       labels.append(int(key))
 
-  # Print the dataset before feeding it to the AI model
-  # print("Dataset:")
-  # for i in range(len(labels)):
-    # print(f"Label: {labels[i]}, Features: {features[i]}")
-
-
   # Convert features to a sparse matrix
   global vectorizer
   vectorizer = DictVectorizer(sparse=False)
@@ -32,12 +31,6 @@ def train_classifier(dataset):
 
   # Split the data into training and testing sets
   X_train, X_test, y_train, y_test = train_test_split(features_matrix, labels, test_size=0.2, random_state=42)
-
-  # print("=========")
-  # print(X_train)
-  # print(y_train)
-  # print("=========")
-
   # Create and train the Multinomial Naive Bayes classifier
   clf = MultinomialNB()
   clf.fit(X_train, y_train)
@@ -47,20 +40,12 @@ def train_classifier(dataset):
 
   # Evaluate accuracy
   accuracy = accuracy_score(y_test, y_pred)
-  # print(f"Accuracy on the test set: {accuracy}")
 
   # Calculate additional metrics
   precision = precision_score(y_test, y_pred)
   recall = recall_score(y_test, y_pred)
   f1 = f1_score(y_test, y_pred)
-
-  # print(f"Precision: {precision}")
-  # print(f"Recall: {recall}")
-  # print(f"F1 Score: {f1}")
-
   conf_mat = confusion_matrix(y_test, y_pred, labels=[0, 1])
-  # print("Confusion Matrix:")
-  # print(conf_mat)
 
   global classifier_model
   classifier_model = clf
@@ -148,3 +133,68 @@ def classify(inputs):
   except:
     output = ""
     return output, result_string 
+  
+def get_dataset_linear_regression(data):
+
+  crop_data = {}
+  for index, row in data.iterrows():
+    # print(row)
+    crop = row['CROP']
+    row_data = {
+      "Q1": [row['Q1']],
+      "Q2": [row['Q2']],
+      "Q3": [row['Q3']],
+      "Q4": [row['Q4']],
+      "Q1.1": [row['Q1.1']],
+      "Q2.1": [row['Q2.1']],
+      "Q3.1": [row['Q3.1']],
+      "Q4.1": 0
+    }
+    df = pd.DataFrame(row_data)
+    df.fillna(df.mean(), inplace=True)
+    crop_data[crop] = df
+
+  return crop_data
+
+def train_classifier2(crop_data):
+  models = {}
+  scores = {}
+
+  for crop, df in crop_data.items():
+    X = np.arange(1, len(df.columns) + 1).reshape(-1, 1)
+    y = df.values.flatten()
+    model = LinearRegression()
+    model.fit(X, y)
+    models[crop] = model
+
+    y_pred = model.predict(X)
+    mae = mean_absolute_error(y, y_pred)
+    mse = mean_squared_error(y, y_pred)
+    rmse = np.sqrt(mse)
+    r2 = r2_score(y, y_pred)
+    scores[crop] = {'MAE': round(mae, 4), 'MSE': round(mse, 4), 'RMSE': round(rmse, 4), 'R-squared': round(r2, 4)}
+
+  global classifier_2_models
+  classifier_2_models = models
+
+  return models, scores
+
+def classify2(initial_investment, harvest_month, harvest_year, crop):
+  model = classifier_2_models[crop]
+  
+  initial_investment = float(initial_investment)
+  harvest_month = int(harvest_month)
+  harvest_year = int(harvest_year)
+
+  # Calculate the quarter index for the harvest month and year
+  harvest_date = datetime(int(harvest_year), int(harvest_month), 1)
+  quarter_index = (harvest_date.month - 1) // 3
+  
+  # Predict the farmgate price increase
+  predicted_increase = model.predict([[quarter_index + 1]])
+  
+  # Calculate ROI
+  total_return = initial_investment * (predicted_increase / 100)
+  roi = (total_return / initial_investment) * 100
+  
+  return roi[0], total_return
