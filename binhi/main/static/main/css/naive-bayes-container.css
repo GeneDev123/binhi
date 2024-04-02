@@ -37,7 +37,7 @@
 /* ------------------- */
 
 #naive-bayes-container{
-  background-color: rgb(63, 63, 63);
+  background-color: #020302;
   margin: auto;
   width: 80%;
   min-height: 800px;
@@ -128,7 +128,7 @@ select {
 }
 
 .classify-submit-btn, .train-btn {
-  background-color: rgb(63, 63, 63);
+  background-color: #020302;
   color: #FFCC00;
   padding: 12px 15px;
   border: none;

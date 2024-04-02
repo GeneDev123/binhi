@@ -7,7 +7,7 @@ body {
 
 /* header-container */
 .header-container{
-  background-color: rgb(63, 63, 63);
+  background-color: #020302;
   color: white;
   margin: 0px;
   display: flex;
@@ -16,7 +16,7 @@ body {
 }
 
 .navigation-links-containar {
-  background-color: rgb(63, 63, 63); 
+  background-color: #020302;
 }
 
 .header-label-container{
@@ -76,7 +76,7 @@ footer {
   padding: 20px 0;
   text-align: center;
   color: #FFCC00;
-  background-color: rgb(63, 63, 63);
+  background-color: #020302;
 }
 
 @media (max-width: 768px) {
