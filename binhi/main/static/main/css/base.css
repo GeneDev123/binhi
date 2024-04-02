@@ -53,7 +53,6 @@ body {
 .nav-link, .header-title-container {
   text-decoration: none;
   color: white;
-  font-weight: bold; 
   border-radius: 5px; 
   transition: background-color 0.3s ease; 
 }
