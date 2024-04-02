@@ -7,7 +7,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   border: 1px solid white;
-  color: #FFCC00;
+  color: white;
   padding-bottom: 20px;
 }
 
@@ -50,7 +50,7 @@
 
 .refresh-btn, .calculate-btn {
   background-color: #020302;
-  color: #FFCC00;
+  color: white;
   padding: 12px 15px;
   border: none;
   border-radius: 4px;
@@ -124,7 +124,7 @@
   box-sizing: border-box;
   font-weight: bolder;
   background-color: #020302;
-  color: #FFCC00;
+  color: white;
   width: 100%;
   text-align: center;
   padding: 5px;
