@@ -28,9 +28,10 @@
             <a href="{% url 'home' %}" class="nav-link">BINHI</a>
           </div>
 
-          <div class="welcome-user-container">
-            {% if not user.username == '' %} Welcome, {{ user.username }}! {% else %} Welcome, User!{% endif %}
+          <div class="landing-page-container">
+            <a href="{% url 'landing_page' %}" class="nav-link">Home</a>
           </div>
+
           <div class="logout-container">
             <a class="nav-link" href="{% url 'logout' %}">logout</a>
           </div>
@@ -47,6 +48,15 @@
         {% endif %}
         
       </div>      
+
+      {% if user.is_authenticated %}
+      <div class="header-user-label-container">
+        <div class="welcome-user-container">
+          {% if not user.username == '' %} Welcome, {{ user.username }}! {% else %} Welcome, User!{% endif %}
+        </div>
+      </div>
+      {% endif %}
+
       <nav class="navigation-links-containar">
         <ul class="navigation-menu">
           <!-- <li class="nav-item"><a href="{% url 'vegetable_recommendations' %}" class="nav-link">Vegetable Recommendations</a></li>
