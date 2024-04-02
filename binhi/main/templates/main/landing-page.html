@@ -9,6 +9,12 @@
 
 {% block body %}
   <div id="landing-page">
+    
+    <div class="landing-page-header">
+      <h1>BINHI: Service Advisory for Sustainable Vegetable Farming</h1>
+      <p>Data Analysis for ROI optimization</p>
+    </div>
+
     <div class="corousel-container">
       <div class="">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -50,6 +56,65 @@
           </a>
         </div>
       </div>
+    </div>
+
+    <div class="landing-page-content">
+
+      <div class="solid-background-content-container">
+      
+        <div class="description-header">
+          ABOUT US?
+        </div>
+
+        <div class="description-container">
+          Binhi is a project inspired by the government's initiative to integrate technology into agriculture. Focused on addressing the challenges encountered by lowland vegetable farmers, Binhi utilizes data analytics to offer real-time recommendations tailored to local conditions and market dynamics. Its primary goal is to enhance crop yield, reduce resource wastage, and optimize financial returns for farmers. By leveraging technology, Binhi aims to empower farmers with actionable insights, thereby contributing to sustainable agricultural practices and fostering economic growth in the farming community.
+        </div>
+
+        <hr>
+
+        <div class="description-header">
+          ROI Calculator:
+        </div>
+
+        <div class="description-container">
+          ROI Calculator is a feature of BINHI that allows farmer to list, organize, track expenses and compute for the overall ROI based on the data given by the user. Posters given below is an example given by the Department of Agriculture that is a fixed version of what ROI calculator
+          can provide.
+        </div>
+
+        <div class="flex-image-display">
+          
+          <div class="poster-container">
+            <img src="{% static 'main/assets/poster-1.jpg' %}" alt="Image 1">
+          </div>
+
+          <div class="poster-container">
+            <img src="{% static 'main/assets/poster-2.jpg' %}" alt="Image 2">
+          </div>
+          
+        </div>
+
+        <hr>
+
+        <div class="description-header">
+          ROI Predictor Version 1:
+        </div>
+
+        <div class="description-container">
+          BINHI uses Multinomial Naive Bayes algorithm to generate an AI classifer capable of predicting the likelihood of positive or negative return of investment based on a crop harvest of a specific month. Note that this provide prediction by identifying patterns and trends on historical ROI data.
+        </div>
+
+        <hr>
+
+        <div class="description-header">
+          ROI Predictor Version 2:
+        </div>
+
+        <div class="description-container">
+          BINHI uses Linear Regression algorithm to generate individual machine learning model for each crops that are given and selected by the farmer. These model can output ROI percent yield based on the given crop, investment and duration by the farmer.
+        </div>
+
+      </div>
+
     </div>
   </div>
 {% endblock %}
