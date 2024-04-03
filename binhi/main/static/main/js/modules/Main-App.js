@@ -29,6 +29,7 @@ class MainApp {
             recall: '',
             precision: '',
             f1Score: '',
+            roi2CropBg: '',
           }
         },
         components: {
@@ -48,6 +49,7 @@ class MainApp {
             handler(newValue, oldValue) {
               if(this.isROIPredictor2Showing){
                 this.initializeTrainBtn();
+                this.listenToRoi2CropInput();
               }
             }            
           }
@@ -126,6 +128,25 @@ class MainApp {
               this.refreshCalculator();
             }
           },
+          listenToRoi2CropInput(){
+            let vueApp = this;
+            $(document).ready(function() {
+              
+              const selectedCrop = document.querySelector('.selected-crop-2');
+              const crop = selectedCrop?.innerText.trim();
+              
+              if(!crop){
+                return;
+              }
+
+              vueApp.roi2CropBg = crop.toLowerCase() + '-bg';
+              if(crop == "Sweet Potato"){
+                vueApp.roi2CropBg = 'sweet-potato-bg';
+              }
+              
+            });
+          },
+          
           refreshCalculator(args){
             let continueRefresh = window.confirm("Proceeding will delete current data, do you wish to proceed?");
             if(!continueRefresh) return;

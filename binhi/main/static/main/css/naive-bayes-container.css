@@ -97,6 +97,10 @@
   margin-bottom: 20px;
 }
 
+/* .roi-classify-form-container-2 {
+  border-radius: 10px;
+} */
+
 .ai-process-instruction-container{
   width: 95%;
 }
@@ -127,6 +131,12 @@
   font-weight: bolder;
 }
 
+.roi-classify-form-container-2 .roi-classify-label{
+  background-color: rgb(250, 245, 233, 0.7);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .ai-instruction-label{
   font-weight: bold;
   text-align: center;
@@ -147,6 +157,10 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   margin: auto;
+}
+
+.roi-input-form-2{
+  margin: 0 !important;
 }
 
 select {
@@ -204,6 +218,56 @@ select {
   box-sizing: border-box;
   font-size: 16px;
   color: #555;
+}
+
+.roi-input-section{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.roi-input-section .selected-plant-container{
+  font-size: 30px;
+  font-weight: bold;
+  background-color: rgb(250, 245, 233, .7);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.palay-bg, .corn-bg, .cabbage-bg, .eggplant-bg, .mongo-bg, .tomato-bg, .onion-bg, .potato-bg, .sweet-potato-bg {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.palay-bg{
+  background-image: url('../assets/palay.jpg');
+}
+.corn-bg{
+  background-image: url('../assets/corn.jpg');
+}
+.cabbage-bg{
+  background-image: url('../assets/cabbage.jpg');
+}
+.eggplant-bg{
+  background-image: url('../assets/eggplant.jpg');
+}
+.mongo-bg{
+  background-image: url('../assets/mongo.jpg');
+}
+.tomato-bg{
+  background-image: url('../assets/tomato.jpg');
+}
+.onion-bg{
+  background-image: url('../assets/onion.jpg');
+}
+.potato-bg{
+  background-image: url('../assets/potato.jpg');
+}
+.sweet-potato-bg{
+  background-image: url('../assets/sweet-potato.jpg');
 }
 
 @media (max-width: 768px) {

@@ -6,44 +6,51 @@
     Return of Investment Predictor Version 2
   </div>      
 
-  <div class="roi-classify-form-container">
+  <div class="roi-classify-form-container roi-classify-form-container-2" :class="roi2CropBg">
     
     <div class="roi-classify-label"> 
       Classify Form
     </div>
 
-    <form id="roi-classify-form" name="roi-classify-form-2" method="GET">
-      {% csrf_token %}
-
-      <input type="hidden" name="form_name" value="roi-classify-form-2">
+    <div class="roi-input-section">
       
-      <label for="date">Select a date:</label>
-      <input type="date" id="selectedDate" name="selectedDate" required>
-
-      <hr>
-
-      <select id="selectedCrop" name="selectedCrop" required>
-        <option value="" disabled selected>Select Crop</option>
-        <option value="Palay">Palay</option>
-        <option value="Corn">Corn</option>
-        <option value="Cabbage">Cabbage</option>
-        <option value="Eggplant">Eggplant</option>
-        <option value="Mongo">Mongo</option>
-        <option value="Tomato">Tomato</option>
-        <option value="Onion">Onion</option>
-        <option value="Potato">Potato</option>
-        <option value="Sweet Potato">Sweet Potato</option>
-      </select>
-
-      <hr>
+      <div class="selected-plant-container">
+        <div class="selected-crop-2">{{ selected_crop }}</div>
+      </div>
       
-      <label for="investment-label">investment (PHP):</label>
-      <input type="number" id="investment-php" name="investment-php" min="0" required>
-      
-      <hr>
-
-      <button class="classify-submit-btn" id="classify-submit-btn" type="submit" :disabled="!isModelTrained">Send</button>
-    </form>
+      <form id="roi-classify-form" class="roi-input-form-2" name="roi-classify-form-2" method="GET">
+        {% csrf_token %}
+  
+        <input type="hidden" name="form_name" value="roi-classify-form-2">
+        
+        <label for="date">Select a date:</label>
+        <input type="date" id="selectedDate" name="selectedDate" required>
+        
+        <hr>
+  
+        <select id="selectedCrop" name="selectedCrop" required>
+          <option value="" disabled selected>Select Crop</option>
+          <option value="Palay">Palay</option>
+          <option value="Corn">Corn</option>
+          <option value="Cabbage">Cabbage</option>
+          <option value="Eggplant">Eggplant</option>
+          <option value="Mongo">Mongo</option>
+          <option value="Tomato">Tomato</option>
+          <option value="Onion">Onion</option>
+          <option value="Potato">Potato</option>
+          <option value="Sweet Potato">Sweet Potato</option>
+        </select>
+  
+        <hr>
+        
+        <label for="investment-label">investment (PHP):</label>
+        <input type="number" id="investment-php" name="investment-php" min="0" required>
+        
+        <hr>
+  
+        <button class="classify-submit-btn" id="classify-submit-btn" type="submit" :disabled="!isModelTrained">Send</button>
+      </form>
+    </div>
 
     <div class="classify-output-container">
       <strong>Selected Crop: {{ selected_crop }}</strong><br>
