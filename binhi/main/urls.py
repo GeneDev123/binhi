@@ -9,7 +9,7 @@ urlpatterns = [
   path('train/', views.train_ai, name='train_classifier'),
   path('train-linear-regression/', views.train_ai_2, name='train_classifier_2'),
   path('home/', views.home, name='home'),
-  path('', views.home, name='home'),
+  path('', views.landing_page, name='landing_page'),
 
   path('logout/', views.user_logout, name='logout'),
   

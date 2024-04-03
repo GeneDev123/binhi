@@ -13,6 +13,10 @@ from .models import CustomUser
 
 from . import ai
 
+def landing_page(request):
+  context = {}
+  return render(request, 'main/landing-page.html', context)
+
 def user_login_and_register(request, login_or_register_param):
   if request.user.is_authenticated:
     return redirect('home')
