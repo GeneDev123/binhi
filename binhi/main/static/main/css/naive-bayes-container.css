@@ -11,6 +11,10 @@
 
 .loading-container {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0px;
 }
 
 .loading-text {
@@ -34,6 +38,35 @@
   100% { transform: rotate(360deg); }
 }
 
+#predictor-v2-trained-table{
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+#predictor-v2-trained-table th, #predictor-v2-trained-table td{
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+#predictor-v2-trained-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#predictor-v2-trained-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#predictor-v2-trained-table tr:hover {
+  background-color: #f5f5f5;
+}
 /* ------------------- */
 
 #naive-bayes-container{

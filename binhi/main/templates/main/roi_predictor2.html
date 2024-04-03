@@ -82,13 +82,37 @@
     
     <div class="classifier-training-output" v-if="!isLoading">
       <span>Classifier Model Output</span>
-      
-      <ul>
-        <li v-for="(value, key) in linearRegressionScores" :key="key">
-          [[ key ]] : [[ value ]]
-          <hr>
-        </li>
-      </ul>
+
+      <table id="predictor-v2-trained-table">
+        <thead>
+          <tr>
+            <th>Crops</th>
+            <th>MAE</th>
+            <th>MSE</th>
+            <th>RMSE</th>
+            <th>R-Squared</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(value, key) in linearRegressionScores" :key="key">
+            <td>
+              [[ key ]]
+            </td>
+            <td>
+              [[ value['MAE'] ]]
+            </td>
+            <td>
+              [[ value['MSE'] ]]
+            </td>
+            <td>
+              [[ value['RMSE'] ]]
+            </td>
+            <td>
+              [[ value['R-squared'] ]]
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   
