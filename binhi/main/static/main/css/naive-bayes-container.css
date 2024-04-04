@@ -200,6 +200,10 @@ select {
   border: 1px solid rgb(0 0 0 / 10%);
 }
 
+.roi-classify-form-container-2 .terminal-output-container {
+  margin-bottom: 20px;
+}
+
 .terminal-output-container .terminal-output{
   width: 100%;
   background-color: black;
@@ -220,6 +224,32 @@ select {
   color: #555;
 }
 
+.classify-output-container .display-flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.classify-output-container .display-flex .selected-plant-container{
+  font-size: 30px;
+  font-weight: bold;
+  font-size: 50px;
+  text-shadow: 2px 2px black;
+  color: rgb(250, 245, 233);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.v2-output-container{
+  color: rgb(250, 245, 233);
+  padding: 20px;
+  border-radius: 15px;
+  text-shadow: 2px 2px black;
+  font-size: 20px;
+}
+
 .roi-input-section{
   display: flex;
   justify-content: space-around;
@@ -228,13 +258,31 @@ select {
   padding-bottom: 20px;
 }
 
-.roi-input-section .selected-plant-container{
-  font-size: 30px;
-  font-weight: bold;
-  background-color: rgb(250, 245, 233, .7);
-  padding: 15px;
-  border-radius: 10px;
+.v2-model-scores-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.v2-model{
+  background-color: rgb(250, 245, 233);
+  color: black;
+  padding: 10px;
+  border: solid black 1px;
+  border-radius: 15px;
+  text-align: center;
+  width: 180px;
   margin-bottom: 20px;
+}
+
+.v2-model .label-score .score{
+  font-size: 40px;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.v2-model .label-score .labe{
+  font-size: 12px;
 }
 
 .palay-bg, .corn-bg, .cabbage-bg, .eggplant-bg, .mongo-bg, .tomato-bg, .onion-bg, .potato-bg, .sweet-potato-bg {

@@ -6,18 +6,13 @@
     Return of Investment Predictor Version 2
   </div>      
 
-  <div class="roi-classify-form-container roi-classify-form-container-2" :class="roi2CropBg">
+  <div class="roi-classify-form-container roi-classify-form-container-2">
     
     <div class="roi-classify-label"> 
       Input Form
     </div>
 
     <div class="roi-input-section">
-      
-      <div class="selected-plant-container">
-        <div class="selected-crop-2">{{ selected_crop }}</div>
-      </div>
-      
       <form id="roi-classify-form" class="roi-input-form-2" name="roi-classify-form-2" method="GET">
         {% csrf_token %}
   
@@ -52,26 +47,80 @@
       </form>
     </div>
 
-    <div v-cloak class="classify-output-container" v-show="!isLoading">
+    <div v-cloak class="classify-output-container" v-show="!isLoading" :class="roi2CropBg">
+
+      <div class="display-flex">
+        <div class="selected-plant-container">
+          <div class="selected-crop-2">{{ selected_crop }}</div>
+        </div>
       
-      {% if selected_crop %}
-        <strong>Selected Crop: {{ selected_crop }}</strong><br>
-      {% endif %}
-      {% if selected_date %}
-        <strong>Selected Date: {{ selected_date }}</strong><br>
-      {% endif %}
-      {% if investment %}
-        <strong>investment (PHP): {{ investment }}</strong><br>
-      {% endif %}
-      {% if roi %}
-        <strong>Predicted ROI: {{ roi }}%</strong><br>
-      {% endif %}
-      {% if total_return %}
-        <strong>Predicted ROI (PHP): {{ total_return }}</strong><br>
+        <div class="v2-output-container">
+          {% if selected_crop %}
+            <strong>Selected Crop: {{ selected_crop }}</strong><br>
+          {% endif %}
+          {% if selected_date %}
+            <strong>Selected Date: {{ selected_date }}</strong><br>
+          {% endif %}
+          {% if investment %}
+            <strong>investment (PHP): {{ investment }}</strong><br>
+          {% endif %}
+          {% if roi %}
+            <strong>Predicted ROI: {{ roi }}%</strong><br>
+          {% endif %}
+          {% if total_return %}
+            <strong>Predicted ROI (PHP): {{ total_return }}</strong><br>
+          {% endif %}
+        </div>
+      </div>
+
+      <br>
+      
+      {% if model_score %}
+        <div class="v2-model-scores-container">
+          <div class="mae-container v2-model">
+            <div class="description"></div>
+            <div class="label-score">
+              <div class="score">{{ model_score.MAE }}</div>
+              <div class="label">Mean Absolute Error Score MAE</div>
+            </div>
+          </div>
+          <div class="mse-container v2-model">
+            <div class="description"></div>
+            <div class="label-score">
+              <div class="score">{{ model_score.MSE }}</div>
+              <div class="label">Mean Squared Error MSE</div>
+            </div>
+          </div>
+          <div class="rmse-container v2-model">
+            <div class="description"></div>
+            <div class="label-score">
+              <div class="score">{{ model_score.RMSE }}</div>
+              <div class="label">Root Mean Square Error RMSE</div>
+            </div>
+          </div>
+          <div class="r-squared-container v2-model">
+            <div class="description"></div>
+            <div class="label-score">
+              <div class="score">{{ model_score.R_squared }}</div>
+              <div class="label">R-Squared</div>
+            </div>
+      
+          </div>
+        </div>
       {% endif %}
       
       <br>
       <br>
+
+      <div class="terminal-output-container">
+      
+        Terminal Output: 
+        
+        <div class="terminal-output">
+          {{ progress_output }}
+        </div>
+      </div>
+            
 
       <div v-if="!isModelTrained">
         {% if not selected_crop %}
@@ -81,15 +130,6 @@
         {% endif%}
       </div>
       
-      <!-- <div class="terminal-output-container">
-      
-        Terminal Output: 
-        
-        <div class="terminal-output">
-          {{ progress_output }}
-        </div>
-      </div> -->
-            
     </div>
 
   </div>
@@ -130,7 +170,7 @@
               [[ value['RMSE'] ]]
             </td>
             <td>
-              [[ value['R-squared'] ]]
+              [[ value['R_squared'] ]]
             </td>
           </tr>
         </tbody>
