@@ -281,8 +281,17 @@ select {
   word-wrap: break-word;
 }
 
-.v2-model .label-score .labe{
+.v2-model .description{
   font-size: 12px;
+  display: none;
+}
+
+.v2-model .display-block{
+  display: block;
+}
+
+.v2-model .display-none{
+  display: none;
 }
 
 .palay-bg, .corn-bg, .cabbage-bg, .eggplant-bg, .mongo-bg, .tomato-bg, .onion-bg, .potato-bg, .sweet-potato-bg {

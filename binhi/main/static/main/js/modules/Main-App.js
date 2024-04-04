@@ -31,6 +31,7 @@ class MainApp {
             f1Score: '',
             roi2CropBg: '',
             linearRegressionScores: {},
+            showDescription: false,
           }
         },
         watch: {
@@ -119,7 +120,6 @@ class MainApp {
             let divContent = $("#classifier-2-output").text();
           
             if(divContent){
-              console.log(divContent);
               this.selectROIOption('predictor2');
             }
 
