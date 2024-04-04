@@ -172,15 +172,19 @@ def train_classifier2(crop_data):
     mse = mean_squared_error(y, y_pred)
     rmse = np.sqrt(mse)
     r2 = r2_score(y, y_pred)
-    scores[crop] = {'MAE': round(mae, 4), 'MSE': round(mse, 4), 'RMSE': round(rmse, 4), 'R-squared': round(r2, 4)}
+    scores[crop] = {'MAE': round(mae, 4), 'MSE': round(mse, 4), 'RMSE': round(rmse, 4), 'R_squared': round(r2, 4)}
 
   global classifier_2_models
   classifier_2_models = models
+
+  global classifier_2_scores
+  classifier_2_scores = scores
 
   return models, scores
 
 def classify2(initial_investment, harvest_month, harvest_year, crop):
   model = classifier_2_models[crop]
+  model_score = classifier_2_scores[crop]
   
   initial_investment = float(initial_investment)
   harvest_month = int(harvest_month)
@@ -197,4 +201,4 @@ def classify2(initial_investment, harvest_month, harvest_year, crop):
   total_return = initial_investment * (predicted_increase / 100)
   roi = (total_return / initial_investment) * 100
   
-  return roi[0], total_return
+  return roi[0], total_return, model_score
