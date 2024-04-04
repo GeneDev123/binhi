@@ -30,13 +30,8 @@ class MainApp {
             precision: '',
             f1Score: '',
             roi2CropBg: '',
+            linearRegressionScores: {},
           }
-        },
-        components: {
-  
-        },
-        async created(){
-
         },
         watch: {
           roiData: {
@@ -48,13 +43,14 @@ class MainApp {
           isROIPredictor2Showing: {
             handler(newValue, oldValue) {
               if(this.isROIPredictor2Showing){
-                this.initializeTrainBtn();
+                this.initializeTrainBtn2();
                 this.listenToRoi2CropInput();
               }
             }            
           }
         },
         async mounted(){
+          this.resetDataValues();
           this.trainModelUrl = document.getElementById('train-classifier-url') ? document.getElementById('train-classifier-url').value : "";
           this.trainModelUrl2 = document.getElementById('train-classifier-2-url') ? document.getElementById('train-classifier-2-url').value : "";
           await this.initializeTrainBtn();
@@ -62,15 +58,41 @@ class MainApp {
           this.checkIfClassifier2IsUsed();
         },
         methods: {
-          initializeTrainBtn(){
+          initializeTrainBtn2(){
             let vueApp = this;
+            
             $(document).ready(function() {
-              $('#train-btn, #train-btn2').on('click', function() {
-                  
-                console.log("CLICIKED");
+              $('#train-btn2').on('click', function() {  
+                vueApp.resetDataValues();
                 vueApp.isLoading = true;
                 $.ajax({
-                  url: vueApp.isROIPredictorShowing ? vueApp.trainModelUrl : vueApp.trainModelUrl2,
+                  url: vueApp.trainModelUrl2,
+                  type: 'GET',
+                  success: function(response) {
+                    vueApp.isModelTrained = true;
+                    
+                    setTimeout(function() {
+                      alert('Notice: Model Successfully Trained');
+                      vueApp.isLoading = false;
+                      vueApp.linearRegressionScores = response.model_output
+                    }, 2000);
+                  },
+                  error: function(error) {
+                    alert('Notice: Model Training failed');
+                    vueApp.isLoading = false;
+                  }
+                });
+              });
+            });
+          },
+          initializeTrainBtn(){
+
+            let vueApp = this;
+            $(document).ready(function() {
+              $('#train-btn').on('click', function() {
+                vueApp.isLoading = true;
+                $.ajax({
+                  url: vueApp.trainModelUrl,
                   type: 'GET',
                   success: function(response) {
                     vueApp.isModelTrained = true;
@@ -82,7 +104,6 @@ class MainApp {
                       vueApp.precision = response.model_output.precision
                       vueApp.recall = response.model_output.recall
                       vueApp.f1Score = response.model_output.f1_score
-                      vueApp.linearRegressionScores = response.model_output
                       // vueApp.accuracy = response.model_output.accuracy
                     }, 2000);
                   },

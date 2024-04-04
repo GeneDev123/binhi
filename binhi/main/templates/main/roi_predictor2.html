@@ -9,7 +9,7 @@
   <div class="roi-classify-form-container roi-classify-form-container-2" :class="roi2CropBg">
     
     <div class="roi-classify-label"> 
-      Classify Form
+      Input Form
     </div>
 
     <div class="roi-input-section">
@@ -52,18 +52,33 @@
       </form>
     </div>
 
-    <div class="classify-output-container">
-      <strong>Selected Crop: {{ selected_crop }}</strong><br>
-      <strong>Selected Date: {{ selected_date }}</strong><br>
-      <strong>investment (PHP): {{ investment }}</strong><br>
-      <strong>Predicted ROI: {{ roi }}%</strong><br>
-      <strong>Predicted ROI (PHP): {{ total_return }}</strong>
+    <div v-cloak class="classify-output-container" v-show="!isLoading">
+      
+      {% if selected_crop %}
+        <strong>Selected Crop: {{ selected_crop }}</strong><br>
+      {% endif %}
+      {% if selected_date %}
+        <strong>Selected Date: {{ selected_date }}</strong><br>
+      {% endif %}
+      {% if investment %}
+        <strong>investment (PHP): {{ investment }}</strong><br>
+      {% endif %}
+      {% if roi %}
+        <strong>Predicted ROI: {{ roi }}%</strong><br>
+      {% endif %}
+      {% if total_return %}
+        <strong>Predicted ROI (PHP): {{ total_return }}</strong><br>
+      {% endif %}
       
       <br>
       <br>
 
       <div v-if="!isModelTrained">
-        <button class="train-btn" id="train-btn2" type="submit">Train Classifier</button>
+        {% if not selected_crop %}
+          <button class="train-btn" id="train-btn2" type="submit">Train Predictor</button>
+        {% else %}
+          <button class="train-btn" id="train-btn2" type="submit">Retrain Predictor</button>
+        {% endif%}
       </div>
       
       <!-- <div class="terminal-output-container">
