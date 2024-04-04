@@ -63,6 +63,7 @@ def home(request):
   selected_date = ''
   predicted_roi = ''
   total_return = ''
+  model_score = ''
 
   if request.method == 'GET':
     
@@ -89,7 +90,7 @@ def home(request):
       selected_date = request.GET.get('selectedDate')
       year, month, day = selected_date.split('-')
 
-      predicted_roi, total_return = ai.classify2(investment, month, year, selected_crop)
+      predicted_roi, total_return, model_score = ai.classify2(investment, month, year, selected_crop)
 
   context = {
     'dataset': dataset,
@@ -103,6 +104,7 @@ def home(request):
     'investment': investment,
     'roi': predicted_roi,
     'total_return': total_return,
+    'model_score': model_score,
   }
   return render(request, 'main/home.html', context)
 
