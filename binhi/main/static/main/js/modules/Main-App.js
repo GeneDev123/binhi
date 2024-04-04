@@ -117,8 +117,7 @@ class MainApp {
             });
           },
           checkIfClassifier2IsUsed(){
-            let divContent = $("#classifier-2-output").text();
-          
+            let divContent = document.getElementById("classifier-2-output");
             if(divContent){
               this.selectROIOption('predictor2');
             }
