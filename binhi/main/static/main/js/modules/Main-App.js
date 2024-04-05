@@ -123,6 +123,9 @@ class MainApp {
             }
 
           },
+          toggleContainer(id){
+            $('#' + id).toggle();
+          },
           switchCarouselImg(action){
             if(action == 'next'){
               this.carouselIndex = this.carouselIndex === 2 ? 0 : this.carouselIndex + 1;
