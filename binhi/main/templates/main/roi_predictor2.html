@@ -67,8 +67,11 @@
           {% if roi %}
             <strong>Predicted ROI: {{ roi }}%</strong><br>
           {% endif %}
-          {% if total_return %}
-            <strong>Predicted ROI (PHP): {{ total_return }}</strong><br>
+          {% if profit %}
+            <strong>Predicted ROI (PHP): {{ profit }}</strong><br>
+          {% endif %}
+          {% if revenue %}
+            <strong>Total Return (PHP): {{ revenue }}</strong><br>
           {% endif %}
         </div>
       </div>
@@ -120,13 +123,29 @@
       <br>
       <br>
 
-      {% if progress_output %}
+      {% if conclusion_output %}
+        <div class="conclusion-output-container">
+          Conclusion: 
+          
+          <div class="conclusion">
+            {% if roi > 0 %}
+            <img src="{% static 'main/assets/arrow-up.png' %}" class="arrow-up">
+            {% else %}
+              <img src="{% static 'main/assets/arrow-down.png' %}" class="arrow-down">
+            {% endif %}
+          <strong>{{ conclusion_output }}</strong>
+          </div>
+          
+        </div>
+      {% endif %}
+      
+      {% if terminal_progress %}
         <div class="terminal-output-container">
         
           Terminal Output: 
           
           <div class="terminal-output">
-            {{ progress_output }}
+            {{ terminal_progress }}
           </div>
         </div>
       {% endif %}
@@ -152,7 +171,7 @@
       </div>  
     </div>
     
-    <div class="classifier-training-output" v-if="!isLoading">
+    <div class="classifier-training-output" v-if="!isLoading" @click="toggleContainer('predictor-v2-trained-table')">
       <span>Classifier Model Output</span>
 
       <table id="predictor-v2-trained-table">

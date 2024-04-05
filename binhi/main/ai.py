@@ -172,7 +172,7 @@ def train_classifier2(crop_data):
     mse = mean_squared_error(y, y_pred)
     rmse = np.sqrt(mse)
     r2 = r2_score(y, y_pred)
-    scores[crop] = {'MAE': round(mae, 4), 'MSE': round(mse, 4), 'RMSE': round(rmse, 4), 'R_squared': round(r2, 4)}
+    scores[crop] = {'MAE': round(mae, 2), 'MSE': round(mse, 2), 'RMSE': round(rmse, 2), 'R_squared': round(r2, 2)}
 
   global classifier_2_models
   classifier_2_models = models
@@ -183,22 +183,44 @@ def train_classifier2(crop_data):
   return models, scores
 
 def classify2(initial_investment, harvest_month, harvest_year, crop):
-  model = classifier_2_models[crop]
-  model_score = classifier_2_scores[crop]
   
-  initial_investment = float(initial_investment)
-  harvest_month = int(harvest_month)
-  harvest_year = int(harvest_year)
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  try: 
+    start_time = time.time()
 
-  # Calculate the quarter index for the harvest month and year
-  harvest_date = datetime(int(harvest_year), int(harvest_month), 1)
-  quarter_index = (harvest_date.month - 1) // 3
+    with tqdm(total=1, desc="Classification progress", position=0, leave=True) as pbar:
+      model = classifier_2_models[crop]
+      model_score = classifier_2_scores[crop]
+      
+      initial_investment = float(initial_investment)
+      harvest_month = int(harvest_month)
+      harvest_year = int(harvest_year)
+
+      # Calculate the quarter index for the harvest month and year
+      harvest_date = datetime(int(harvest_year), int(harvest_month), 1)
+      quarter_index = (harvest_date.month - 1) // 3
+      
+      # Predict the farmgate price increase
+      predicted_increase = model.predict([[quarter_index + 1]])
+      
+      # Calculate ROI
+      total_return = initial_investment * (predicted_increase / 100)
+      roi = (total_return / initial_investment) * 100
+      
+      terminal_progress = f'\nThe prediction output for Linear Regression Model Prediction:\nROI: {roi[0]}\nTotal return: {total_return}'
+
+      pbar.update(1)
+      elapsed_time = time.time() - start_time
+      progress_rate = pbar.n / elapsed_time if elapsed_time > 0 else 0
+      
+      terminal_progress += f"\nElapsed Time: {elapsed_time * 1000:.2f} milliseconds"
+      terminal_progress += f"\nElapsed Time: {elapsed_time * 1e6:.2f} microseconds"
+      terminal_progress += f"Progress Rate: {progress_rate:.2f} iterations/second\n"
+      terminal_progress += f"Prediction progress: 100%|================================|1/1 [{progress_rate:.2f} it/s]"
+
+      conclusion_output = f'The ROI prediction of Year: {harvest_year}, Month: {months[harvest_month - 1]},  Crop: {crop} will yield {np.round(roi[0], 2)}% return rate.\n\n The investment of PHP {initial_investment} will profit PHP {np.round(total_return, 2)[0]}.'
+
+      return roi[0], total_return, model_score, terminal_progress, conclusion_output
   
-  # Predict the farmgate price increase
-  predicted_increase = model.predict([[quarter_index + 1]])
-  
-  # Calculate ROI
-  total_return = initial_investment * (predicted_increase / 100)
-  roi = (total_return / initial_investment) * 100
-  
-  return roi[0], total_return, model_score
+  except:
+    return 0, 0, {}, '', ''
