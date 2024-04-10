@@ -50,10 +50,31 @@
       </div>      
 
       {% if user.is_authenticated %}
+      
       <div class="header-user-label-container">
         <div class="welcome-user-container">
           {% if not user.username == '' %} Welcome, {{ user.username }}! {% else %} Welcome, User!{% endif %}
         </div>
+      </div>
+
+
+      <div class="header-feature-container">
+        <div 
+          class="roi-predictor-option nav-link" 
+          :class="{ 'roi-option-selected': isROIPredictor2Showing}"
+          @click="selectROIOption('predictor2')"
+        >
+          ROI Predictor V2
+        </div>
+        
+        <div 
+          class="roi-calculator-option nav-link" 
+          :class="{ 'roi-option-selected': isROICalculatorShowing}"
+          @click="selectROIOption('calculator')"
+        >
+          ROI Calculator
+        </div>
+
       </div>
       {% endif %}
 

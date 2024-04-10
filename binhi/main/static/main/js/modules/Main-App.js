@@ -55,7 +55,11 @@ class MainApp {
           this.trainModelUrl = document.getElementById('train-classifier-url') ? document.getElementById('train-classifier-url').value : "";
           this.trainModelUrl2 = document.getElementById('train-classifier-2-url') ? document.getElementById('train-classifier-2-url').value : "";
           await this.initializeTrainBtn();
-          this.checkIfClassifier2IsUsed();
+          // this.checkIfClassifier2IsUsed();
+          
+          this.isROIPredictor2Showing = true;
+          this.isROIPredictorShowing = false;
+
           this.initializeNavBarInHome();
         },
         methods: {
@@ -79,7 +83,7 @@ class MainApp {
             let vueApp = this;
             
             $(document).ready(function() {
-              $('#train-btn2').on('click', function() {  
+              $('#train-btn2, .train-btn2').on('click', function() {  
                 vueApp.resetDataValues();
                 vueApp.isLoading = true;
                 $.ajax({
@@ -150,6 +154,11 @@ class MainApp {
             }
           },
           selectROIOption(ROIOption){
+
+            if(window.location.pathname != '/home/'){
+              window.location.href = '/home/';
+            }
+           
             this.isROIPredictorShowing = true ? ROIOption === 'predictor' : false;
             this.isROIPredictor2Showing = true ? ROIOption === 'predictor2' : false;
             this.isROICalculatorShowing = true ? ROIOption === 'calculator' : false;

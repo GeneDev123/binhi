@@ -2,9 +2,9 @@
 
 <div class="naive-bayes-container" id="naive-bayes-container" v-if="isROIPredictor2Showing">
       
-  <div class="container-title">
+  <!-- <div class="container-title">
     Return of Investment Predictor Version 2
-  </div>      
+  </div>       -->
 
   <div class="roi-classify-form-container roi-classify-form-container-2">
     
@@ -43,124 +43,138 @@
         
         <hr>
   
-        <button class="classify-submit-btn" id="classify-submit-btn" type="submit" :disabled="!isModelTrained">Send</button>
-      </form>
-    </div>
-
-    <div v-cloak class="classify-output-container" v-show="!isLoading" :class="roi2CropBg">
-
-      <div class="display-flex">
-        <div class="selected-plant-container">
-          <div class="selected-crop-2">{{ selected_crop }}</div>
-        </div>
-      
-        <div class="v2-output-container">
-          {% if selected_crop %}
-            <strong>Selected Crop: {{ selected_crop }}</strong><br>
-          {% endif %}
-          {% if selected_date %}
-            <strong>Selected Date: {{ selected_date }}</strong><br>
-          {% endif %}
-          {% if investment %}
-            <strong>investment (PHP): {{ investment }}</strong><br>
-          {% endif %}
-          {% if roi %}
-            <strong>Predicted ROI: {{ roi }}%</strong><br>
-          {% endif %}
-          {% if profit %}
-            <strong>Predicted ROI (PHP): {{ profit }}</strong><br>
-          {% endif %}
-          {% if revenue %}
-            <strong>Total Return (PHP): {{ revenue }}</strong><br>
-          {% endif %}
-        </div>
-      </div>
-
-      <br>
-      
-      {% if model_score %}
-        <div class="v2-model-scores-container">
-          <div class="mae-container v2-model" @mouseover="showDescription = 1" @mouseleave="showDescription = false">
-            <div class="description" :class="{ 'display-block': showDescription == 1 }">
-              Measures the average absolute difference between actual and predicted values.
-            </div>
-            <div class="label-score" :class="{ 'display-none': showDescription == 1 }">
-              <div class="score">{{ model_score.MAE }}</div>
-              <div class="label">Mean Absolute Error Score MAE</div>
-            </div>
-          </div>
-          <div class="mse-container v2-model" @mouseover="showDescription = 2" @mouseleave="showDescription = false">
-            <div class="description" :class="{ 'display-block': showDescription == 2 }"> 
-              Measures the average squared difference between actual and predicted values, giving more weight to larger errors.
-            </div>
-            <div class="label-score" :class="{ 'display-none': showDescription == 2 }">
-              <div class="score">{{ model_score.MSE }}</div>
-              <div class="label">Mean Squared Error MSE</div>
-            </div>
-          </div>
-          <div class="rmse-container v2-model" @mouseover="showDescription = 3" @mouseleave="showDescription = false">
-            <div class="description" :class="{ 'display-block': showDescription == 3 }">
-              Square root of the average squared differences between actual and predicted values, providing a measure of the standard deviation of prediction errors.
-            </div>
-            <div class="label-score" :class="{ 'display-none': showDescription == 3 }">
-              <div class="score">{{ model_score.RMSE }}</div>
-              <div class="label">Root Mean Square Error RMSE</div>
-            </div>
-          </div>
-          <div class="r-squared-container v2-model" @mouseover="showDescription = 4" @mouseleave="showDescription = false">
-            <div class="description" :class="{ 'display-block': showDescription == 4 }">
-              Measures the proportion of the variance in the dependent variable that is predictable from the independent variables, ranging from 0 to 1.
-            </div>
-            <div class="label-score" :class="{ 'display-none': showDescription == 4 }">
-              <div class="score">{{ model_score.R_squared }}</div>
-              <div class="label">R-Squared</div>
-            </div>
-      
-          </div>
-        </div>
-      {% endif %}
-      
-      <br>
-      <br>
-
-      {% if conclusion_output %}
-        <div class="conclusion-output-container">
-          Conclusion: 
-          
-          <div class="conclusion">
-            {% if roi > 0 %}
-            <img src="{% static 'main/assets/arrow-up.png' %}" class="arrow-up">
-            {% else %}
-              <img src="{% static 'main/assets/arrow-down.png' %}" class="arrow-down">
-            {% endif %}
-          <strong>{{ conclusion_output }}</strong>
-          </div>
-          
-        </div>
-      {% endif %}
-      
-      {% if terminal_progress %}
-        <div class="terminal-output-container">
-        
-          Terminal Output: 
-          
-          <div class="terminal-output">
-            {{ terminal_progress }}
-          </div>
-        </div>
-      {% endif %}
-            
-
-      <div v-if="!isModelTrained">
         {% if not selected_crop %}
-          <button class="train-btn" id="train-btn2" type="submit">Train Predictor</button>
+        <button class="classify-submit-btn" id="classify-submit-btn" type="submit" :disabled="!isModelTrained">Predict</button>
         {% else %}
-          <button class="train-btn" id="train-btn2" type="submit">Retrain Predictor</button>
-        {% endif%}
-      </div>
+        <button class="classify-submit-btn train-btn2" id="classify-submit-btn"type="submit">Predict</button>
+        {% endif %}
       
+      </form>
+
+      {% if not selected_crop %}
+      <div v-if="!isModelTrained">
+        <button class="train-btn" id="train-btn2" type="submit">Train Predictor</button>
+        <!-- <button class="train-btn" id="train-btn2" type="submit">Retrain Predictor</button> -->
+      </div>
+      {% endif %}
+
     </div>
 
+    {% if selected_crop %}
+      <div class="toggle-output" @click="toggleContainer('output-container-popup')">
+        Output
+      </div>
+
+    
+      <div class="output-position" id="output-container-popup" @click="toggleContainer('output-container-popup')">
+        <div v-cloak class="classify-output-container" v-show="!isLoading" :class="roi2CropBg">
+
+          <div class="display-flex">
+            <div class="selected-plant-container">
+              <div class="selected-crop-2">{{ selected_crop }}</div>
+            </div>
+          
+            <div class="v2-output-container">
+              {% if selected_crop %}
+                <strong>Selected Crop: {{ selected_crop }}</strong><br>
+              {% endif %}
+              {% if selected_date %}
+                <strong>Selected Date: {{ selected_date }}</strong><br>
+              {% endif %}
+              {% if investment %}
+                <strong>investment (PHP): {{ investment }}</strong><br>
+              {% endif %}
+              {% if roi %}
+                <strong>Predicted ROI: {{ roi }}%</strong><br>
+              {% endif %}
+              {% if profit %}
+                <strong>Predicted ROI (PHP): {{ profit }}</strong><br>
+              {% endif %}
+              {% if revenue %}
+                <strong>Total Return (PHP): {{ revenue }}</strong><br>
+              {% endif %}
+            </div>
+          </div>
+
+          <br>
+          
+          {% if model_score %}
+            <!-- <div class="v2-model-scores-container">
+              <div class="mae-container v2-model" @mouseover="showDescription = 1" @mouseleave="showDescription = false">
+                <div class="description" :class="{ 'display-block': showDescription == 1 }">
+                  Measures the average absolute difference between actual and predicted values.
+                </div>
+                <div class="label-score" :class="{ 'display-none': showDescription == 1 }">
+                  <div class="score">{{ model_score.MAE }}</div>
+                  <div class="label">Mean Absolute Error Score MAE</div>
+                </div>
+              </div>
+              <div class="mse-container v2-model" @mouseover="showDescription = 2" @mouseleave="showDescription = false">
+                <div class="description" :class="{ 'display-block': showDescription == 2 }"> 
+                  Measures the average squared difference between actual and predicted values, giving more weight to larger errors.
+                </div>
+                <div class="label-score" :class="{ 'display-none': showDescription == 2 }">
+                  <div class="score">{{ model_score.MSE }}</div>
+                  <div class="label">Mean Squared Error MSE</div>
+                </div>
+              </div>
+              <div class="rmse-container v2-model" @mouseover="showDescription = 3" @mouseleave="showDescription = false">
+                <div class="description" :class="{ 'display-block': showDescription == 3 }">
+                  Square root of the average squared differences between actual and predicted values, providing a measure of the standard deviation of prediction errors.
+                </div>
+                <div class="label-score" :class="{ 'display-none': showDescription == 3 }">
+                  <div class="score">{{ model_score.RMSE }}</div>
+                  <div class="label">Root Mean Square Error RMSE</div>
+                </div>
+              </div>
+              <div class="r-squared-container v2-model" @mouseover="showDescription = 4" @mouseleave="showDescription = false">
+                <div class="description" :class="{ 'display-block': showDescription == 4 }">
+                  Measures the proportion of the variance in the dependent variable that is predictable from the independent variables, ranging from 0 to 1.
+                </div>
+                <div class="label-score" :class="{ 'display-none': showDescription == 4 }">
+                  <div class="score">{{ model_score.R_squared }}</div>
+                  <div class="label">R-Squared</div>
+                </div>
+          
+              </div>
+            </div> -->
+          {% endif %}
+          
+          <br>
+          <br>
+
+          {% if conclusion_output %}
+            <div class="conclusion-output-container">
+              Conclusion: 
+              
+              <div class="conclusion">
+                {% if roi > 0 %}
+                <img src="{% static 'main/assets/arrow-up.png' %}" class="arrow-up">
+                {% else %}
+                  <img src="{% static 'main/assets/arrow-down.png' %}" class="arrow-down">
+                {% endif %}
+              <strong>{{ conclusion_output }}</strong>
+              </div>
+              
+            </div>
+          {% endif %}
+          
+          {% if terminal_progress %}
+            <div class="terminal-output-container">
+            
+              Terminal Output: 
+              
+              <div class="terminal-output">
+                {{ terminal_progress }}
+              </div>
+            </div>
+          {% endif %}
+          
+        </div>
+      
+      </div>
+      
+    {% endif %}
   </div>
 
   <div class="classifier-training-output-container" v-if="isModelTrained">
