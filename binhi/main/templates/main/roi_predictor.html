@@ -2,9 +2,9 @@
 
 <div class="naive-bayes-container" id="naive-bayes-container" v-if="isROIPredictorShowing">
       
-  <div id="classifier-2-output">
-    {{ roi }}
-  </div>
+  {% if roi %}
+    <div id="classifier-2-output"></div>
+  {% endif %}
 
   <div class="container-title">
     Return of Investment Predictor

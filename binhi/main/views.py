@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
 import pandas as pd
+import numpy as np
 
 from .forms import CustomUserCreationForm, UserUpdateForm
 from .models import CustomUser
@@ -63,6 +64,11 @@ def home(request):
   selected_date = ''
   predicted_roi = ''
   total_return = ''
+  model_score = ''
+  terminal_progress = ''
+  profit = [None]
+  revenue = ''
+  conclusion_output = ''
 
   if request.method == 'GET':
     
@@ -89,7 +95,11 @@ def home(request):
       selected_date = request.GET.get('selectedDate')
       year, month, day = selected_date.split('-')
 
-      predicted_roi, total_return = ai.classify2(investment, month, year, selected_crop)
+      predicted_roi, total_return, model_score, terminal_progress, conclusion_output = ai.classify2(investment, month, year, selected_crop)
+      predicted_roi = np.round(predicted_roi, 2)
+      profit = np.round(total_return, 2)
+      revenue = round(float(profit) + float(investment), 2)
+     
 
   context = {
     'dataset': dataset,
@@ -102,7 +112,11 @@ def home(request):
     'selected_date': selected_date,
     'investment': investment,
     'roi': predicted_roi,
-    'total_return': total_return,
+    'profit': profit[0],
+    'revenue': revenue,
+    'model_score': model_score,
+    'terminal_progress': terminal_progress,
+    'conclusion_output': conclusion_output
   }
   return render(request, 'main/home.html', context)
 
