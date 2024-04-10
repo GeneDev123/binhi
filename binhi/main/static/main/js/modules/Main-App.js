@@ -55,10 +55,26 @@ class MainApp {
           this.trainModelUrl = document.getElementById('train-classifier-url') ? document.getElementById('train-classifier-url').value : "";
           this.trainModelUrl2 = document.getElementById('train-classifier-2-url') ? document.getElementById('train-classifier-2-url').value : "";
           await this.initializeTrainBtn();
-
           this.checkIfClassifier2IsUsed();
+          this.initializeNavBarInHome();
         },
         methods: {
+          initializeNavBarInHome(){
+            document.querySelectorAll('.section-link').forEach(anchor => {
+              anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+      
+                const targetClass = this.getAttribute('data-target');
+                const targetSection = document.querySelector(`.${targetClass}`);
+                
+                if(targetSection){
+                  targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                }
+              });
+            });
+          },
           initializeTrainBtn2(){
             let vueApp = this;
             

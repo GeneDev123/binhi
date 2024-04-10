@@ -61,58 +61,318 @@
     <div class="landing-page-content">
 
       <div class="solid-background-content-container">
+
+        <nav>
+          <ul>
+            <li><a href="#" class="section-link" data-target="nav-land-preparation">Land Preparation</a></li>
+            <li><a href="#" class="section-link" data-target="nav-crop-sustainability">Crop Sustainability</a></li>
+            <li><a href="#" class="section-link" data-target="nav-pest-disease-management">Pest and Disease Management</a></li>
+            <li><a href="#" class="section-link" data-target="nav-roi-calculator">ROI Calculator Description</a></li>
+            <li><a href="#" class="section-link" data-target="nav-predictor-v2">ROI Predictor Description</a></li>
+            <li><a href="#" class="section-link" data-target="nav-about-us">About Us</a></li>
+          </ul>
+        </nav>
+        
       
-        <div class="description-header">
-          ABOUT US?
-        </div>
-
-        <div class="description-container">
-          Binhi is a project inspired by the government's initiative to integrate technology into agriculture. Focused on addressing the challenges encountered by lowland vegetable farmers, Binhi utilizes data analytics to offer real-time recommendations tailored to local conditions and market dynamics. Its primary goal is to enhance crop yield, reduce resource wastage, and optimize financial returns for farmers. By leveraging technology, Binhi aims to empower farmers with actionable insights, thereby contributing to sustainable agricultural practices and fostering economic growth in the farming community.
-        </div>
-
-        <hr>
-
-        <div class="description-header">
-          ROI Calculator:
-        </div>
-
-        <div class="description-container">
-          ROI Calculator is a feature of BINHI that allows farmer to list, organize, track expenses and compute for the overall ROI based on the data given by the user. Posters given below is an example given by the Department of Agriculture that is a fixed version of what ROI calculator
-          can provide.
-        </div>
-
-        <div class="flex-image-display">
-          
-          <div class="poster-container">
-            <img src="{% static 'main/assets/poster-1.jpg' %}" alt="Image 1">
+        <div class="nav-land-preparation">
+          <div class="description-header">
+            LAND PREPARATION
           </div>
 
-          <div class="poster-container">
-            <img src="{% static 'main/assets/poster-2.jpg' %}" alt="Image 2">
+          <div class="description-container">
+            Preparation of the Soil. Any primary soil preparation must be aimed at creating growing conditions for tomato plants to develop the optimal root system in a specific soil profile. Although the root structure of a tomato plant can penetrate various soil types up to depths of 2 meters, the highest percentage roots will be found in the top 600mm of the soil.
+          </div>
+
+          <div class="description-container">
+            The advantages of soil preparation are the following:
+          </div>
+
+          <div class="description-container">
+            <ul>
+              <li>No restrictions on root development,</li>
+              <li>Less chance of compaction,</li>
+              <li>More oxygen in the soil creating better root development,</li>
+              <li>Higher yield,</li>
+              <li>Reduction in production costs,</li>
+              <li>More vegetative growth,</li>
+              <li>More tolerance to drought and stress,</li>
+              <li>Less root disease prevalence,</li>
+              <li>Horizontal and vertical compaction layers broken,</li>
+              <li>Better water retention</li>
+              <li>Increased uptake of moisture and nutrients.</li>
+            </ul>
+          </div>
+
+          <div class="description-container">
+            Field preparation. Shaping the land into beds and growing tomatoes on top of the bed facilitates furrow irrigation of the crop and drainage after heavy rain. Beds are prepared through the use of mechanical means, sometimes with the use of carabao-drawn plow. Plowing and harrowing are done twice before finally proceeding to furrowing.
           </div>
           
+          <div class="description-container">
+            Mulching. A mulch of rice straw, thin polyethylene plastic sheets, or other material is used to cover the soil surface. Mulches reduce fertilizer leaching, conserve moisture, and reduce weeds.
+          </div>
+
+        </div>
+
+        <hr>
+        
+        <div class="nav-crop-sustainability">
+          <div class="description-header">
+            Crop Suitability: Description, Planting, and Cultivation Practices
+          </div>
+
+          <div class="description-container">
+            The planting calendar and maturity of the priority crops in this roadmap is shown in Table 36. Ampalaya, carrots, eggplant, okra, pole sitao, and snap beans can be planted all year-round while others that require lower temperatures such as cabbage and Chinese cabbage are planted from October to December. On the other hand, other seasonal crops such as potato and tomato are planted from September to January and from January and September, respectively.
+          </div>
         </div>
 
         <hr>
 
-        <div class="description-header">
-          ROI Predictor Version 1:
-        </div>
+        <div class="nav-pest-disease-management">
+          
+          <div class="description-header">
+            PEST AND DISEASE MANAGEMENT
+          </div>
 
-        <div class="description-container">
-          BINHI uses Multinomial Naive Bayes algorithm to generate an AI classifer capable of predicting the likelihood of positive or negative return of investment based on a crop harvest of a specific month. Note that this provide prediction by identifying patterns and trends on historical ROI data.
+          <div class="description-container">
+            <div class="table-name">
+              TABLE 37. LIST OF PESTS AND DISEASES AND THEIR RECOMMENDED CONTROL
+            </div>
+
+            <table class="table-content">
+              <thead>
+                <th>
+                  CROP
+                </th>
+                <th>
+                  PESTS AND DISEASES
+                </th>
+                <th>
+                  RECOMMENDED CONTROL
+                </th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ampalaya</td>
+                  <td>
+                    Ampalaya mosaic virus <br> <hr>
+                    Bacterial wilt <br><hr>
+                    Downy mildew <br><hr>
+                    Little leaf <br><hr>
+                    Cucurbit beetle (Aulocophora similis) <br><hr>
+                    Aphids (Aphis gossypii) <br><hr>
+                    Fruit fly (Bactrocera cucurbitaea) <br><hr>
+                    Cutworm (Spodoptera litura) <br><hr>
+                  </td>
+                  <td>
+                    Remove of sources of inoculum <br><hr>
+                    Crop rotation with non-host crops (e. pole sitao); plant at well-drained soils; use of resistant varieties, grafting of rootstocks with resistance to BW <br><hr>
+                    Remove infected leaves <br><hr>
+                    Remove sources of inoculum <br><hr>
+                    Dusting of leaves with wood ash or rice hullash; spray with soap solution (4 tbsp soap/16L water) Spray with hot pepper (100g macerated hot pepper/16L water) <br><hr>
+                    Spray with hot pepper (100g macerated hot pepper/16L water) and soap solution <br><hr>
+                    Fruit bagging 1-2 days after fruit set; Use of natural fruit fly attractant like methyl eugenol, basil leaves <br><hr>
+                    Spray with commercial preparations of Bacillus thuringensis (Bt) and Nuclear Polyhedrosis Virus (NPV); use of light traps <br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Squash</td>
+                  <td>
+                    Bacterial wilt <br><hr>
+                    Downy mildew <br><hr>
+                    Cucurbit beetle <br><hr>
+                    Aulocophora similis <br><hr>
+                    Aphids (Aphis gossypii) <br><hr>
+                    Cutworm (Spodoptera litura) <br><hr>
+                    Viruses (mosaic virus, leaf curl virus) <br><hr>
+                  </td>
+                  <td>
+                    Control measures same as ampalaya <br> <hr>
+                    For viruses - use of resistant varieties; remove sources of inoculum <br> <hr> 
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Pole Sitao</td>
+                  <td>
+                    Bean fly (Ophiomyia phaseoli)<br> <hr>
+                    Aphids (Aphis craccivora)<br> <hr>
+                    Leafhopper (Amrasca bigutulla) <br> <hr>
+                    Pod borer<br> <hr>
+                  </td>
+                  <td>
+                    Spray with soap solution (4tbsp soap/16L) <br><hr>
+                    Spray with hot pepper extract (100g/16L) and soap solution<br><hr>
+                    Planting of sacrificial plants <br><hr>
+                    Planting of repellant crops (e.g., Onion, basil, and marigold); spraying of Bt & NPV<br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td></td>
+                  <td>
+                    Cowpea rust <br><hr>
+                    Mosaic Virus <br><hr>
+                    Fusarium root rot <br><hr>
+                  </td>
+                  <td>
+                    Use of resistant varieties, pruning of infected leaves <br><hr>
+                    Use of resistant or tolerant varieties <br><hr>
+                    Use of resistant varieties; plant in well- drained soils <br><hr>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>Snap Bean</td>
+                  <td>
+                    Bean fly <br><hr>
+                    Aphids <br><hr>
+                    Leafhopper <br><hr>
+                    Pod borer <br><hr>
+                    Bean rust <br><hr>
+                    Fusarium root rot <br><hr>
+                    Anthracnose <br><hr>
+                  </td>
+                  <td>
+                    Control measures same as pole sitao <br><hr>
+                    Anthracnose-use of resistant varieties; remove sources of inoculum <br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Tomato</td>
+                  <td>
+                    Tomato fruitworm (Helicoverpa zea)  <br><hr>
+                    White flies (Trialeurdes vaporariorum) <br><hr>
+                    Bacterial wilt <br><hr>
+                    Tomato yellow leaf curl virus <br><hr>
+                  </td>
+                  <td>
+                    Use of Biocon agent (egg parasitoid of Trichogramma) <br><hr>
+                    Spray with soap solution (4tbsp soap/16L) <br><hr>
+                    Crop rotation with non-host crops (e. pole sitao); plant at well-drained soils; use of resistant varieties, grafting of rootstocks with resistance to BW <br><hr>
+                    Use of resistant or tolerant varieties; remove sources of inoculum <br><hr>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>Eggplant</td>
+                  <td>
+                    Tip and fruit shoot borer, aphids, thrips, and green leaf hopper Green leafhopper, fruit, and stem borer <br><hr>
+                  </td>
+                  <td>
+                    Practice intercropping: planting of aromatic crops as pest repellant<br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Okra</td>
+                  <td>
+                    Green leafhopper, fruit, and stem borer<br><hr>
+                  </td>
+                  <td>
+                    Practice intercropping: grow aromatic plant as insect repellant<br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Carrot</td>
+                  <td>
+                    Cutworm and armyworm<br><hr>
+                  </td>
+                  <td>
+                    Spraying of biological pesticides (Bt and NPV)<br><hr>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Potato</td>
+                  <td>
+                    Cutworms<br><hr>
+                  </td>
+                  <td>
+                    Spray with hot pepper extract (100g/16L) and soap solution<br><hr>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="description-container">
+            Source: Vegetable Production Guides
+          </div>
+
+          <div class="description-container">
+            Table 37 summarizes the most common pests and diseases of the vegetables and the recommended control measures from IPB-UPLB. For ampalaya and squash, the most common insect pests are cucurbit beetle, aphids, fruit fly, and cutworm while the most common diseases are mosaic virus, downy mildew, bacterial wilt, and little leaf. For pole sitao and snap beans, the most common insect pests are bean fly, aphids, leaf hopper, and pod borer while the most common diseases include bean rust, Fusarium root rot, mosaic virus, and anthracnose for snap beans only. For tomato, fruit worm and white flies are the common insect pests while the common diseases are bacterial wilt and tomato yellow leaf curl virus. Fruit, tip, shoot, and stem borers are the most common insect pests of eggplant and okra. Cutworms are common to potatoes while cutworm and armyworm are common to carrots.
+          </div>
+
+          <div class="description-container">
+            Some of the recommended control measures for the insect pests are dusting of leaves with wood ash, spraying of hot pepper and soap solution, use of biological control agents, crop rotation, and planting of aromatic crops to repel insect pests. On the other hand, removal of sources of inoculum and infected leaves or plant parts and the use of resistant and tolerant varieties are recommended to control the diseases.
+          </div>
+        </div>
+        
+        <hr>
+
+        <div class="nav-roi-calculator">
+          <div class="description-header">
+            ROI Calculator:
+          </div>
+  
+          <div class="description-container">
+            ROI Calculator is a feature of BINHI that allows farmer to list, organize, track expenses and compute for the overall ROI based on the data given by the user. Posters given below is an example given by the Department of Agriculture that is a fixed version of what ROI calculator
+            can provide.
+          </div>
+  
+          <div class="flex-image-display">
+            
+            <div class="poster-container">
+              <img src="{% static 'main/assets/poster-1.jpg' %}" alt="Image 1">
+            </div>
+  
+            <div class="poster-container">
+              <img src="{% static 'main/assets/poster-2.jpg' %}" alt="Image 2">
+            </div>
+            
+          </div>  
+        </div>
+        
+        <hr>
+
+        <div class="nav-predictor-v1">
+          <div class="description-header">
+            ROI Predictor Version 1:
+          </div>
+  
+          <div class="description-container">
+            BINHI uses Multinomial Naive Bayes algorithm to generate an AI classifer capable of predicting the likelihood of positive or negative return of investment based on a crop harvest of a specific month. Note that this provide prediction by identifying patterns and trends on historical ROI data.
+          </div>  
         </div>
 
         <hr>
 
-        <div class="description-header">
-          ROI Predictor Version 2:
+        <div class="nav-predictor-v2">
+          <div class="description-header">
+            ROI Predictor Version 2:
+          </div>
+  
+          <div class="description-container">
+            BINHI uses Linear Regression algorithm to generate individual machine learning model for each crops that are given and selected by the farmer. These model can output ROI percent yield based on the given crop, investment and duration by the farmer.
+          </div>  
         </div>
+        
+        <hr>
 
-        <div class="description-container">
-          BINHI uses Linear Regression algorithm to generate individual machine learning model for each crops that are given and selected by the farmer. These model can output ROI percent yield based on the given crop, investment and duration by the farmer.
+        <div class="nav-about-us">
+          <div class="description-header">
+            ABOUT US?
+          </div>
+  
+          <div class="description-container">
+            Binhi is a project inspired by the government's initiative to integrate technology into agriculture. Focused on addressing the challenges encountered by lowland vegetable farmers, Binhi utilizes data analytics to offer real-time recommendations tailored to local conditions and market dynamics. Its primary goal is to enhance crop yield, reduce resource wastage, and optimize financial returns for farmers. By leveraging technology, Binhi aims to empower farmers with actionable insights, thereby contributing to sustainable agricultural practices and fostering economic growth in the farming community.
+          </div>  
         </div>
-
+        
       </div>
 
     </div>
