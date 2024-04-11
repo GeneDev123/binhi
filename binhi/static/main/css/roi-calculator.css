@@ -1,13 +1,13 @@
 #roi-calculator-container{
-  background-color: rgb(63, 63, 63);
+  /* background-color: rgb(2, 3, 2, 0.6); */
   margin: auto;
   width: 80%;
   min-height: 800px;
   margin-top: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  border: 1px solid white;
-  color: #FFCC00;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  border: 1px solid black; */
+  color: white;
   padding-bottom: 20px;
 }
 
@@ -49,8 +49,8 @@
 }
 
 .refresh-btn, .calculate-btn {
-  background-color: rgb(63, 63, 63);
-  color: #FFCC00;
+  background-color: #020302;
+  color: white;
   padding: 12px 15px;
   border: none;
   border-radius: 4px;
@@ -123,8 +123,8 @@
   width: 100%;
   box-sizing: border-box;
   font-weight: bolder;
-  background-color: rgb(63, 63, 63);
-  color: #FFCC00;
+  background-color: #020302;
+  color: white;
   width: 100%;
   text-align: center;
   padding: 5px;

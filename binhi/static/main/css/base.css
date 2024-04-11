@@ -2,21 +2,27 @@ body {
   padding: 0px;
   margin: 0px;
   background-color: #FAF5E9;
+  background-image: url('../assets/background2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   font-family: 'Arial', sans-serif;
 }
 
 /* header-container */
 .header-container{
-  background-color: rgb(63, 63, 63);
+  background-color: #020302;
   color: white;
   margin: 0px;
   display: flex;
   justify-content: space-between;
-  padding: 15px 0px;
+  padding: 5px 0px;
+  font-size: 20px;
+  align-items: center;
 }
 
 .navigation-links-containar {
-  background-color: rgb(63, 63, 63); 
+  background-color: #020302;
 }
 
 .header-label-container{
@@ -25,9 +31,21 @@ body {
   justify-content: center;
 }
 
-.header-title-container, .welcome-user-container, .logout-container{
+.header-title-container, .welcome-user-container, .logout-container, .roi-predictor-option, .roi-calculator-option{
   margin: 0px 15px;
   text-align: center;
+}
+
+.header-feature-container{
+  display: flex;
+}
+
+.roi-predictor-option, .roi-calculator-option{
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px; 
+  transition: background-color 0.3s ease; 
 }
 
 .logout-container{
@@ -51,7 +69,6 @@ body {
 .nav-link, .header-title-container {
   text-decoration: none;
   color: white;
-  font-weight: bold; 
   border-radius: 5px; 
   transition: background-color 0.3s ease; 
 }
@@ -75,8 +92,8 @@ footer {
 .footer-container{    
   padding: 20px 0;
   text-align: center;
-  color: #FFCC00;
-  background-color: rgb(63, 63, 63);
+  color: white;
+  background-color: #020302;
 }
 
 @media (max-width: 768px) {
