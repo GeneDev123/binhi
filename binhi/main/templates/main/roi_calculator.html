@@ -13,11 +13,15 @@
     <div class="select-crop-form-container">
       <select id="selectedCrop" v-model="selectedCrop" @change="overrideIfCropIsSelected" name="selectedCrop" required>
         <option value="" disabled selected>Select Crop</option>
-        <option value="mango">Mango</option>
-        <option value="sugarcane">Sugarcane</option>
-        <option value="banana">banana</option>
-        <option value="coconut">coconut</option>
-        <option value="cabbage">cabbage</option>
+        <option value="Palay">Palay</option>
+        <option value="Corn">Corn</option>
+        <option value="Cabbage">Cabbage</option>
+        <option value="Eggplant">Eggplant</option>
+        <option value="Mongo">Mongo</option>
+        <option value="Tomato">Tomato</option>
+        <option value="Onion">Onion</option>
+        <option value="Potato">Potato</option>
+        <option value="Sweet Potato">Sweet Potato</option>
       </select>  
 
       <button class="refresh-btn" id="refresh-btn" @click="refreshCalculator({'removeCrop': true})">Refresh</button>
