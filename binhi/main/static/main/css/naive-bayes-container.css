@@ -244,6 +244,7 @@ select {
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .output-position{
