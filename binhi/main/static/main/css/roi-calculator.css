@@ -1,12 +1,12 @@
 #roi-calculator-container{
-  background-color: rgb(2, 3, 2, 0.6);
+  /* background-color: rgb(2, 3, 2, 0.6); */
   margin: auto;
   width: 80%;
   min-height: 800px;
   margin-top: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  border: 1px solid black;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  border: 1px solid black; */
   color: white;
   padding-bottom: 20px;
 }

@@ -31,9 +31,21 @@ body {
   justify-content: center;
 }
 
-.header-title-container, .welcome-user-container, .logout-container{
+.header-title-container, .welcome-user-container, .logout-container, .roi-predictor-option, .roi-calculator-option{
   margin: 0px 15px;
   text-align: center;
+}
+
+.header-feature-container{
+  display: flex;
+}
+
+.roi-predictor-option, .roi-calculator-option{
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px; 
+  transition: background-color 0.3s ease; 
 }
 
 .logout-container{

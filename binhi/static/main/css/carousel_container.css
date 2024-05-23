@@ -1,3 +1,12 @@
+.carousel {
+  background-color: #FAF5E9;
+  padding: 5px 0px;
+}
+
+.carousel-caption{
+  background-color: rgb(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
 
 .carousel-inner img {
   max-width: 100%;

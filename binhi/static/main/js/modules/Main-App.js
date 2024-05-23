@@ -10,6 +10,7 @@ class MainApp {
           return {
             carouselIndex: 0,
             isROIPredictorShowing: true,
+            isROIPredictor2Showing: false,
             isROICalculatorShowing: false,
             selectedCrop: "",
             cropIsSelected: false,
@@ -22,18 +23,16 @@ class MainApp {
             roi: 1,
             isModelTrained: false,
             trainModelUrl: "",
+            trainModelUrl2: "",
             isLoading: false,
             accuracy: '',
             recall: '',
             precision: '',
             f1Score: '',
+            roi2CropBg: '',
+            linearRegressionScores: {},
+            showDescription: false,
           }
-        },
-        components: {
-  
-        },
-        async created(){
-
         },
         watch: {
           roiData: {
@@ -42,41 +41,110 @@ class MainApp {
             },
             deep: true,
           },
+          isROIPredictor2Showing: {
+            handler(newValue, oldValue) {
+              if(this.isROIPredictor2Showing){
+                this.initializeTrainBtn2();
+                this.listenToRoi2CropInput();
+              }
+            }            
+          }
         },
         async mounted(){
-          this.trainModelUrl = document.getElementById('train-classifier-url').value;
+          this.resetDataValues();
+          this.trainModelUrl = document.getElementById('train-classifier-url') ? document.getElementById('train-classifier-url').value : "";
+          this.trainModelUrl2 = document.getElementById('train-classifier-2-url') ? document.getElementById('train-classifier-2-url').value : "";
           await this.initializeTrainBtn();
+          // this.checkIfClassifier2IsUsed();
+          
+          this.isROIPredictor2Showing = true;
+          this.isROIPredictorShowing = false;
+
+          this.initializeNavBarInHome();
         },
         methods: {
+          initializeNavBarInHome(){
+            document.querySelectorAll('.section-link').forEach(anchor => {
+              anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+      
+                const targetClass = this.getAttribute('data-target');
+                const targetSection = document.querySelector(`.${targetClass}`);
+                
+                if(targetSection){
+                  targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                }
+              });
+            });
+          },
+          initializeTrainBtn2(){
+            let vueApp = this;
+            
+            $(document).ready(function() {
+              $('#train-btn2, .train-btn2').on('click', function() {  
+                vueApp.resetDataValues();
+                vueApp.isLoading = true;
+                $.ajax({
+                  url: vueApp.trainModelUrl2,
+                  type: 'GET',
+                  success: function(response) {
+                    vueApp.isModelTrained = true;
+                    
+                    setTimeout(function() {
+                      alert('Notice: Model Successfully Trained');
+                      vueApp.isLoading = false;
+                      vueApp.linearRegressionScores = response.model_output
+                    }, 2000);
+                  },
+                  error: function(error) {
+                    alert('Notice: Model Training failed');
+                    vueApp.isLoading = false;
+                  }
+                });
+              });
+            });
+          },
           initializeTrainBtn(){
+
             let vueApp = this;
             $(document).ready(function() {
               $('#train-btn').on('click', function() {
-
-                  vueApp.isLoading = true
-                  $.ajax({
-                    url: vueApp.trainModelUrl,
-                    type: 'GET',
-                    success: function(response) {
-                      vueApp.isModelTrained = true;
-                      
-                      setTimeout(function() {
-                        alert('Notice: Model Successfully Trained');
-                        vueApp.isLoading = false;
-                        vueApp.accuracy = response.model_output.accuracy
-                        vueApp.precision = response.model_output.precision
-                        vueApp.recall = response.model_output.recall
-                        vueApp.f1Score = response.model_output.f1_score
-                        // vueApp.accuracy = response.model_output.accuracy
-                      }, 2000);
-                    },
-                    error: function(error) {
-                      alert('Notice: Model Training failed');
+                vueApp.isLoading = true;
+                $.ajax({
+                  url: vueApp.trainModelUrl,
+                  type: 'GET',
+                  success: function(response) {
+                    vueApp.isModelTrained = true;
+                    
+                    setTimeout(function() {
+                      alert('Notice: Model Successfully Trained');
                       vueApp.isLoading = false;
-                    }
-                  });
+                      vueApp.accuracy = response.model_output.accuracy
+                      vueApp.precision = response.model_output.precision
+                      vueApp.recall = response.model_output.recall
+                      vueApp.f1Score = response.model_output.f1_score
+                      // vueApp.accuracy = response.model_output.accuracy
+                    }, 2000);
+                  },
+                  error: function(error) {
+                    alert('Notice: Model Training failed');
+                    vueApp.isLoading = false;
+                  }
+                });
               });
-          });
+            });
+          },
+          checkIfClassifier2IsUsed(){
+            let divContent = document.getElementById("classifier-2-output");
+            if(divContent){
+              this.selectROIOption('predictor2');
+            }
+
+          },
+          toggleContainer(id){
+            $('#' + id).toggle();
           },
           switchCarouselImg(action){
             if(action == 'next'){
@@ -86,8 +154,15 @@ class MainApp {
             }
           },
           selectROIOption(ROIOption){
+
+            if(window.location.pathname != '/home/'){
+              window.location.href = '/home/';
+            }
+           
             this.isROIPredictorShowing = true ? ROIOption === 'predictor' : false;
+            this.isROIPredictor2Showing = true ? ROIOption === 'predictor2' : false;
             this.isROICalculatorShowing = true ? ROIOption === 'calculator' : false;
+            this.resetDataValues();
           },
           selectCrop(){
             if(!this.selectedCrop) return;
@@ -101,6 +176,25 @@ class MainApp {
               this.refreshCalculator();
             }
           },
+          listenToRoi2CropInput(){
+            let vueApp = this;
+            $(document).ready(function() {
+              
+              const selectedCrop = document.querySelector('.selected-crop-2');
+              const crop = selectedCrop?.innerText.trim();
+              
+              if(!crop){
+                return;
+              }
+
+              vueApp.roi2CropBg = crop.toLowerCase() + '-bg';
+              if(crop == "Sweet Potato"){
+                vueApp.roi2CropBg = 'sweet-potato-bg';
+              }
+              
+            });
+          },
+          
           refreshCalculator(args){
             let continueRefresh = window.confirm("Proceeding will delete current data, do you wish to proceed?");
             if(!continueRefresh) return;
@@ -191,6 +285,23 @@ class MainApp {
               "ROI(%): " + this.roi
             );
 
+          },
+          async resetDataValues(){
+            // await this.initializeTrainBtn();
+            this.selectedCrop = "";
+            this.cropIsSelected = false;
+            this.roiData = [];
+            this.contingencyPercent = "";
+            this.grossIncome = "";
+            this.contingencyCost = "";
+            this.totalCost = 0;
+            this.netIncome = 0;
+            this.roi = 1;
+            this.isModelTrained = false;
+            this.accuracy = '';
+            this.recall = '';
+            this.precision = '';
+            this.f1Score = '';
           },
         }
       }).mount("#binhi-main-container");

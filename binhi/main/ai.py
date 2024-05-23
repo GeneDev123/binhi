@@ -218,7 +218,10 @@ def classify2(initial_investment, harvest_month, harvest_year, crop):
       terminal_progress += f"Progress Rate: {progress_rate:.2f} iterations/second\n"
       terminal_progress += f"Prediction progress: 100%|================================|1/1 [{progress_rate:.2f} it/s]"
 
-      conclusion_output = f'The ROI prediction of Year: {harvest_year}, Month: {months[harvest_month - 1]},  Crop: {crop} will yield {np.round(roi[0], 2)}% return rate.\n\n The investment of PHP {initial_investment} will profit PHP {np.round(total_return, 2)[0]}.'
+      if (np.round(total_return, 2)[0]) > 0:
+        conclusion_output = f'The ROI prediction of Year: {harvest_year}, Month: {months[harvest_month - 1]},  Crop: {crop} will yield {np.round(roi[0], 2)}% return rate.\n\n The investment of PHP {initial_investment} will profit PHP {np.round(total_return, 2)[0]}.'
+      elif (np.round(total_return, 2)[0]) < 0:
+        conclusion_output = f'The ROI prediction of Year: {harvest_year}, Month: {months[harvest_month - 1]},  Crop: {crop} will yield {np.round(roi[0], 2)}% return rate.\n\n The investment of PHP {initial_investment} will have a negative profit of PHP {np.round(total_return, 2)[0]}.'
 
       return roi[0], total_return, model_score, terminal_progress, conclusion_output
   
